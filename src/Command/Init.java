@@ -1,3 +1,4 @@
+package Command;
 import java.io.File;
 
 public class Init extends BaseCommand{
