@@ -1,15 +1,20 @@
 package Command;
 
+import Main.Status;
+
 public class Add extends BaseCommand {
+
+	String fileName;
+
+	public Add(String fileName) {
+		this.fileName = fileName;
+	}
 
 	@Override
 	public void execute() {
-
-	}
-
-	public void execute(String str) 
-	{
-
+		
+		Status status = Status.getInstance();
+		status.addFileName(fileName);
 	}
 
 }
