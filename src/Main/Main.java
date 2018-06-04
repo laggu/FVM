@@ -1,3 +1,4 @@
+package Main;
 import java.util.ArrayList;
 
 import Command.Add;
@@ -21,8 +22,8 @@ public class Main {
 			break;
 
 		case "add":
-			commamd = new Add();
-			status.addFileName(args[2]);
+			commamd = new Add(args[2]);
+			
 			break;
 
 		case "commit":
