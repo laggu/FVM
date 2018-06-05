@@ -23,7 +23,7 @@ public class Main {
 
 		case "add":
 			command = new Add(args[2]);
-			
+
 			break;
 
 		case "commit":
@@ -31,6 +31,7 @@ public class Main {
 			break;
 
 		case "breanch":
+			command = new Branch(asgs[2]);
 			break;
 
 		case "merge":
