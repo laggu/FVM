@@ -13,21 +13,21 @@ public class Main {
 		// �̱���
 		Status status = Status.getInstance();
 
-		BaseCommand commamd = null;
+		BaseCommand command = null;
 
 		switch (args[1]) {
 
 		case "init":
-			commamd = new Init(args[2]);
+			command = new Init(args[2]);
 			break;
 
 		case "add":
-			commamd = new Add(args[2]);
+			command = new Add(args[2]);
 			
 			break;
 
 		case "commit":
-			commamd = new Commit();
+			command = new Commit();
 			break;
 
 		case "breanch":
@@ -42,8 +42,6 @@ public class Main {
 			break;
 		}
 
-		commamd.execute();
-
+		command.execute();
 	}
-
 }
