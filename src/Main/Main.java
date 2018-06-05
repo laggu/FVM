@@ -10,7 +10,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		// ½Ì±ÛÅæ
+		// ï¿½Ì±ï¿½ï¿½ï¿½
 		Status status = Status.getInstance();
 
 		BaseCommand commamd = null;
@@ -18,7 +18,7 @@ public class Main {
 		switch (args[1]) {
 
 		case "init":
-			commamd = new Init();
+			commamd = new Init(args[2]);
 			break;
 
 		case "add":
