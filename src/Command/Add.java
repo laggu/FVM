@@ -12,7 +12,6 @@ public class Add extends BaseCommand {
 
 	@Override
 	public void execute() {
-		
 		Status status = Status.getInstance();
 		status.addFileName(fileName);
 	}

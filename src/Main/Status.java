@@ -14,14 +14,23 @@ public class Status {
 		}
 	}
 
-	ArrayList<String> addedFile = new ArrayList<>();
-	String branch;
-	int version;
+	private String rootPath;
+	private ArrayList<String> addedFile = new ArrayList<>();
+	private String branch;
+	private int version;
 
 	public Status() {
 		super();
 		this.branch = "master";
 		this.version = 1;
+	}
+
+	public String getRootPath() {
+		return rootPath;
+	}
+
+	public void setRootPath(String rootPath) {
+		this.rootPath = rootPath;
 	}
 
 	public ArrayList<String> getList() {
