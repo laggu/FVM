@@ -1,0 +1,95 @@
+/**********************************/
+/* Table Name: Project */
+/**********************************/
+CREATE TABLE Project(
+		PName                         		VARCHAR2(100)		 NULL ,
+		PPath                         		VARCHAR2(100)		 NULL ,
+		RegDate                       		DATE		 DEFAULT sysdate		 NULL 
+);
+
+COMMENT ON TABLE Project is 'Project';
+COMMENT ON COLUMN Project.PName is 'PName';
+COMMENT ON COLUMN Project.PPath is 'PPath';
+COMMENT ON COLUMN Project.RegDate is 'RegDate';
+
+
+/**********************************/
+/* Table Name: CommitData */
+/**********************************/
+CREATE TABLE CommitData(
+		CommitNo                      		NUMBER(10)		 NULL ,
+		PName                         		VARCHAR2(100)		 NULL ,
+		BName                         		VARCHAR2(100)		 NULL ,
+		TName                         		VARCHAR2(100)		 NULL ,
+		RegDate                       		DATE		 NULL ,
+		Message                       		VARCHAR2(500)		 NULL 
+);
+
+COMMENT ON TABLE CommitData is 'CommitData';
+COMMENT ON COLUMN CommitData.CommitNo is 'CommitNo';
+COMMENT ON COLUMN CommitData.PName is 'PName';
+COMMENT ON COLUMN CommitData.BName is 'BName';
+COMMENT ON COLUMN CommitData.TName is 'TName';
+COMMENT ON COLUMN CommitData.RegDate is 'RegDate';
+COMMENT ON COLUMN CommitData.Message is 'Message';
+
+
+/**********************************/
+/* Table Name: Remote */
+/**********************************/
+CREATE TABLE Remote(
+		Id                            		VARCHAR2(100)		 NULL ,
+		Pw                            		VARCHAR2(100)		 NULL 
+);
+
+COMMENT ON TABLE Remote is 'Remote';
+COMMENT ON COLUMN Remote.Id is 'Id';
+COMMENT ON COLUMN Remote.Pw is 'Pw';
+
+
+/**********************************/
+/* Table Name: Repository */
+/**********************************/
+CREATE TABLE Repository(
+		RepositName                   		VARCHAR2(100)		 NULL ,
+		Id                            		VARCHAR2(100)		 NULL ,
+		RegDate                       		DATE		 DEFAULT sysdate		 NULL 
+);
+
+COMMENT ON TABLE Repository is 'Repository';
+COMMENT ON COLUMN Repository.RepositName is 'RepositName';
+COMMENT ON COLUMN Repository.Id is 'Id';
+COMMENT ON COLUMN Repository.RegDate is 'RegDate';
+
+
+/**********************************/
+/* Table Name: CommitedFile */
+/**********************************/
+CREATE TABLE CommitedFile(
+		FName                         		VARCHAR2(100)		 NULL ,
+		FStatus                       		VARCHAR2(5)		 NULL ,
+		CommitNo                      		NUMBER(10)		 NOT NULL
+);
+
+create sequence CommitedFileIndex
+    start with 1 increment by 1;
+
+COMMENT ON TABLE CommitedFile is 'CommitedFile';
+COMMENT ON COLUMN CommitedFile.FName is 'FName';
+COMMENT ON COLUMN CommitedFile.FStatus is 'FStatus';
+COMMENT ON COLUMN CommitedFile.CommitNo is 'CommitNo';
+
+
+
+ALTER TABLE Project ADD CONSTRAINT IDX_Project_PK PRIMARY KEY (PName);
+
+ALTER TABLE CommitData ADD CONSTRAINT IDX_CommitData_PK PRIMARY KEY (CommitNo);
+
+ALTER TABLE Remote ADD CONSTRAINT IDX_Remote_PK PRIMARY KEY (Id);
+
+ALTER TABLE Repository ADD CONSTRAINT IDX_Repository_PK PRIMARY KEY (RepositName);
+ALTER TABLE Repository ADD CONSTRAINT IDX_Repository_FK0 FOREIGN KEY (Id) REFERENCES Remote (Id);
+
+ALTER TABLE CommitedFile ADD CONSTRAINT IDX_CommitedFile_PK PRIMARY KEY (FName, FStatus, CommitNo);
+ALTER TABLE CommitedFile ADD CONSTRAINT IDX_CommitedFile_FK0 FOREIGN KEY (CommitNo) REFERENCES CommitData (CommitNo);
+
