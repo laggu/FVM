@@ -1,10 +1,7 @@
 package Main;
 import java.util.ArrayList;
 
-import Command.Add;
-import Command.BaseCommand;
-import Command.Commit;
-import Command.Init;
+import Command.*;
 
 public class Main {
 
@@ -31,13 +28,13 @@ public class Main {
 			break;
 
 		case "breanch":
-			command = new Branch(asgs[2]);
+			command = new Branch(args[2]);
 			break;
 
 		case "merge":
 			break;
 
-		case "checkout":
+		case "Checkout":
 			break;
 		default:
 			break;

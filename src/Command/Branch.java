@@ -1,8 +1,13 @@
+package Command;
+
+import Main.Status;
+import java.io.File;
+
 public class Branch extends BaseCommand
 {
   private  String branchName;
 
-  public Branch(branchName)
+  public Branch(String branchName)
   {
     this.branchName = branchName;
   }
