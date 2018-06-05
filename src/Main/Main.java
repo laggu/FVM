@@ -7,7 +7,6 @@ public class Main {
 
 	public static void main(String[] argv) {
 
-		// �̱���
 		Status status = Status.getInstance();
 
 		BaseCommand command = null;
