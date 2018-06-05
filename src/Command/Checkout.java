@@ -2,7 +2,9 @@ package Command;
 
 import Main.Status;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Checkout extends BaseCommand{
     private String branchName;
@@ -39,7 +41,12 @@ public class Checkout extends BaseCommand{
 
         //
 
-
+        Iterator it = status.getList().iterator();
+        while (it.hasNext()) {
+            String fileName = (String) it.next();
+            File f = new File(status.getRootPath() + fileName);
+            f.delete();
+        }
 
 
     }

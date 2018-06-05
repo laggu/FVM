@@ -14,7 +14,7 @@ public class Status {
 		}
 	}
 
-	private String rootPath;
+	private String projectName;
 	private ArrayList<String> addedFile = new ArrayList<>();
 	private String branch;
 	private int version;
@@ -25,15 +25,15 @@ public class Status {
 		this.version = 1;
 	}
 
-	public String getRootPath() {
-		return rootPath;
-	}
+    public String getProjectName() {
+        return projectName;
+    }
 
-	public void setRootPath(String rootPath) {
-		this.rootPath = rootPath;
-	}
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
+    }
 
-	public ArrayList<String> getList() {
+    public ArrayList<String> getList() {
 		return addedFile;
 	}
 

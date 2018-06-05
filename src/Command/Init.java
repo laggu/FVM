@@ -13,10 +13,10 @@ public class Init extends BaseCommand{
 
     @Override
     public void execute() {
-        String rootPath = System.getProperty("user.dir");
-        Status.getInstance().setRootPath(rootPath);
+        String homePath = System.getProperty("user.home");
+        Status.getInstance().setRootPath(homePath);
 
-        File dir = new File(rootPath + "/.fvm/branch/master");
+        File dir = new File(homePath + "/.fvm/"+ projectName + "/branch/master");
         dir.mkdirs();
     }
 

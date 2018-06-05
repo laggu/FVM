@@ -5,22 +5,26 @@ import Command.*;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] argv) {
 
 		// �̱���
 		Status status = Status.getInstance();
 
 		BaseCommand command = null;
 
-		switch (args[1]) {
+		if (argv.length == 0) {
+			System.err.println("옵션을 입력하세요");
+			System.exit(1);
+		}
+
+		switch (argv[0]) {
 
 		case "init":
-			command = new Init(args[2]);
+			command = new Init(argv[1]);
 			break;
 
 		case "add":
-			command = new Add(args[2]);
-
+			command = new Add(argv[1]);
 			break;
 
 		case "commit":
@@ -28,14 +32,15 @@ public class Main {
 			break;
 
 		case "breanch":
-			command = new Branch(args[2]);
+			command = new Branch(argv[1]);
 			break;
 
 		case "merge":
 			break;
 
-		case "Checkout":
+		case "checkout":
 			break;
+
 		default:
 			break;
 		}
