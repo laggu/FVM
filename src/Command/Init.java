@@ -2,12 +2,17 @@ package Command;
 import java.io.File;
 
 public class Init extends BaseCommand{
-    @Override
-    public void execute() {
+
+    String fileName;
+
+    public Init(String str){
+        fileName = str;
     }
 
-    public void execute(String str) {
-        File dir = new File(".fvm");
+    @Override
+    public void execute() {
+        File dir = new File(fileName);
         dir.mkdirs();
     }
+
 }
