@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.List;
 
+
 public class Commit_DAO {
+
+	private static int start = 0;
+	
 	// insert
 	public int Insert(Vo_Commit commit) {
 
@@ -15,13 +19,13 @@ public class Commit_DAO {
 		List<String> commitedFname = commit.getCommitedFname();
 
 		StringBuilder sqlData = new StringBuilder();
-		sqlData.append("insert into CommitData values(CommitDataIndex.nextval,?,?,?,sysdate,?)");
+		sqlData.append("insert into CommitData values(?,?,?,?,sysdate,?)");
 
 		// insert into CommitData values(1, 'PName', 'BName', 'TName', sysdate,
 		// 'Message');
 
 		StringBuilder sqlFile = new StringBuilder();
-		sqlFile.append("insert into CommitedFile values(?,?,CommitedFileIndex.nextval)");
+		sqlFile.append("insert into CommitedFile values(?,?,?)");
 
 		// insert into CommitedFile values('fname','fstatus',
 		// CommitedFileIndex.nextval);
@@ -40,22 +44,22 @@ public class Commit_DAO {
 			ps = con.prepareStatement(sqlData.toString());
 
 			// ? 의 값 바인딩
-			ps.setString(1, commit.getPName());
-			ps.setString(2, commit.getBName());
-			ps.setString(3, commit.getTName());
-			ps.setString(4, commit.getMessage());
+			ps.setString(1, start++);
+			ps.setString(2, commit.getPName());
+			ps.setString(3, commit.getBName());
+			ps.setString(4, commit.getTName());
+			ps.setString(5, commit.getMessage());
 
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();
 
-			// 결과값 핸들린
+			// 결과값 핸들린z
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
 		
-
 		// Commitedfile insert
 		while (i1.hasNext()) {
 
@@ -66,7 +70,8 @@ public class Commit_DAO {
 				// ? 의 값 바인딩
 				ps.setString(1, (String) i1.next()); // added -> filename / a
 				ps.setString(2, "a"); // added -> filename / a
-
+				ps.setString(3, start);
+				
 				// ps실행 => insert 완료 결과값
 				result = ps.executeUpdate();
 
