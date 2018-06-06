@@ -1,9 +1,9 @@
-package db;
+package DB;
 
 public class Vo_Remote {
 
-	String Id;
-	String pw;
+	private String Id;
+	private String pw;
 
 	public Vo_Remote() {
 		super();

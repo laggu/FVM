@@ -1,7 +1,9 @@
 package Main;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class Status {
+public class Status implements Cloneable{
 
 	private static Status status;
 
@@ -15,31 +17,33 @@ public class Status {
 	}
 
 	private String projectName;
-	private ArrayList<String> addedFile = new ArrayList<>();
 	private String branch;
 	private int version;
+	private String rootPath;
+	private ArrayList<File> addedFile = new ArrayList<>();
+	private ArrayList<File> commitedFile = new ArrayList<>();
 
-	public Status() {
+	private Status() {
 		super();
 		this.branch = "master";
 		this.version = 1;
 	}
 
-    public String getProjectName() {
+	public String getRootPath() {
+		return rootPath;
+	}
+
+	public void setRootPath(String rootPath) {
+		this.rootPath = rootPath;
+	}
+
+	public String getProjectName() {
         return projectName;
     }
 
     public void setProjectName(String projectName) {
         this.projectName = projectName;
     }
-
-    public ArrayList<String> getList() {
-		return addedFile;
-	}
-
-	public void addFileName(String name) {
-		this.addedFile.add(name);
-	}
 
 	public String getBranch() {
 		return branch;
@@ -56,5 +60,49 @@ public class Status {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+
+	public void increaseVersion(){
+		version++;
+	}
+
+	public ArrayList<File> getList() {
+		return addedFile;
+	}
+
+	public void addFile(File f) {
+		this.addedFile.add(f);
+	}
+
+	public ArrayList<File> getCommitedFile() {
+		return commitedFile;
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		Status status = (Status)super.clone();
+		status.addedFile = new ArrayList<File>();
+
+		Iterator it = addedFile.iterator();
+
+		while (it.hasNext()) {
+			File f = new File(((File)it.next()).getAbsolutePath());
+			status.addedFile.add(f);
+		}
+
+		status.commitedFile = new ArrayList<>();
+
+		it = commitedFile.iterator();
+
+		while (it.hasNext()) {
+			File f = new File(((File)it.next()).getAbsolutePath());
+			status.commitedFile.add(f);
+		}
+
+		return status;
+	}
+
+
+
+
 
 }

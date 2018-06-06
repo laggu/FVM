@@ -1,9 +1,9 @@
-package db;
+package DB;
 
 public class Vo_Repository {
 	
-	String RepositName;
-	String id;
+	private String RepositName;
+	private String id;
 
 	public Vo_Repository() {
 		super();

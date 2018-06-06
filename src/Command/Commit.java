@@ -3,8 +3,10 @@ package Command;
 import Main.Status;
 
 import java.io.*;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.security.MessageDigest;
 
 public class Commit extends BaseCommand {
 
@@ -16,8 +18,7 @@ public class Commit extends BaseCommand {
 		File dir = new File(branch_dir_str);
 		dir.mkdirs();
 
-		ArrayList<String> fileNames_to_copy = new ArrayList<>();
-
+		ArrayList<File> commitlist = status.getCommitedFile();
 
 		// compare and find files to copy
 
@@ -28,7 +29,7 @@ public class Commit extends BaseCommand {
 		//
 
 
-		Iterator it = fileNames_to_copy.iterator();
+		Iterator it = commitlist.iterator();
 
 		while (it.hasNext()) {
 			String filename = (String)it.next();
@@ -62,5 +63,44 @@ public class Commit extends BaseCommand {
 				}
 			}
 		}
+
+		status.increaseVersion();
+	}
+
+	private boolean isChanged(File f, File f2){
+		return !getHashcode(f).equals(getHashcode(f2));
+	}
+
+	public String getHashcode(File f){
+
+		BufferedInputStream bistream = null;
+		try {
+			bistream = new BufferedInputStream(new FileInputStream(f));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		byte[] message = null;
+		try {
+			message = new byte[bistream.available()];
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		// SHA를 사용하기 위해 MessageDigest 클래스로부터 인스턴스를 얻는다.
+		MessageDigest md = null;
+		try {
+			md = MessageDigest.getInstance("SHA-256");
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		// 해싱할 byte배열을 넘겨준다.
+		// SHA-256의 경우 메시지로 전달할 수 있는 최대 bit 수는 2^64-1개 이다.
+		md.update(message);
+
+		// 해싱된 byte 배열을 digest메서드의 반환값을 통해 얻는다.
+		byte[] hashbytes = md.digest();
+
+		return hashbytes.toString();
 	}
 }

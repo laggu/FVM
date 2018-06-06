@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -9,11 +9,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 public class East extends JPanel {
-	JLabel l1,l2;
-	JTextField cbr;
-	JTextArea cm;
+	private JLabel l1,l2;
+	private JTextField cbr;
+	private JTextArea cm;
 	
-	East(){
+	public East(){
 		
 		GridLayout grid = new GridLayout(5, 2);
 		

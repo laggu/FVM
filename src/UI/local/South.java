@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

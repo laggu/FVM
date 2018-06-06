@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import java.awt.BorderLayout;
 
@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public class LocalUI extends JPanel {
 	
-	LocalUI() {
+	public LocalUI() {
 		
 		setLayout(new BorderLayout());
 		

@@ -1,9 +1,8 @@
 package Network;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import Main.Status;
+
+import java.io.*;
 import java.net.Socket;
 
 public class Network {
@@ -23,16 +22,15 @@ public class Network {
     private int port;
     private boolean logedin;
     private Socket socket;
-    private DataOutputStream os;
-    private DataInputStream is;
-
+    private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
 
     private Network(){
         logedin = false;
         try {
             socket = new Socket(ip,port);
-            os = new DataOutputStream(socket.getOutputStream());
-            is = new DataInputStream(socket.getInputStream());
+            objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            objectInputStream = new ObjectInputStream(socket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -41,12 +39,17 @@ public class Network {
 
     public boolean login(String id, String pw){
         try {
-            os.writeUTF(id);
-            os.writeInt(pw.hashCode());
+            objectOutputStream.writeUTF(id);
+            objectOutputStream.writeInt(pw.hashCode());
 
-            int result = is.readInt();
+            int result = objectInputStream.readInt();
 
-            if(result == 0)
+            if(result == 1){
+                Status status = Status.getInstance();
+                ClientStatus clientStatus = new ClientStatus(id,status.getProjectName(),status.getBranch(),status.getVersion());
+                objectOutputStream.writeObject(clientStatus);
+            }
+            else
                 return false;
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,14 +67,53 @@ public class Network {
         }
     }
 
-    public void send(File f){
+    private void sendFile(File f){
+        byte[] buffer = new byte[10000];
+        int readBytes;
+
         try {
             String fName = f.getName();
-            os.writeUTF(fName);
+            objectOutputStream.writeUTF(fName);
 
+            FileInputStream fis = new FileInputStream(f);
+
+            while ((readBytes = fis.read(buffer)) > 0) {
+                objectOutputStream.write(buffer, 0, readBytes);
+                objectOutputStream.flush();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void sendDir(File dir){
+
+    }
+
+    private void receiveFile(){
+        byte[] buffer = new byte[10000];
+        int n;
+
+        try{
+            String fileName = objectInputStream.readUTF();
+
+
+            // 경로 변경 필요함    !!!!!!!!!!!!
+            File f = new File(fileName);
+            FileOutputStream fos = new FileOutputStream(f);
+
+            while((n = objectInputStream.read(buffer)) != -1){
+                fos.write(buffer,0,n);
+                fos.flush();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void receiveDir(){
+
     }
 }

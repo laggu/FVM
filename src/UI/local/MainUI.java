@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import java.awt.BorderLayout;
 
@@ -7,11 +7,11 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 public class MainUI extends JFrame {
-	JTabbedPane tab = new JTabbedPane();
-	JPanel local = new LocalUI();
-	JPanel remote = new JPanel();
+	private JTabbedPane tab = new JTabbedPane();
+	private JPanel local = new LocalUI();
+	private JPanel remote = new JPanel();
 	
-	MainUI() {
+	public MainUI() {
 		setTitle("File Version Management Program");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

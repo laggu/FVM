@@ -1,4 +1,4 @@
-package db;
+package DB;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,13 +7,13 @@ import java.util.List;
 
 public class Vo_Commit implements Serializable {
 
-	String BName;
-	String PName;
-	String TName;
-	String Message;
+	private String BName;
+	private String PName;
+	private String TName;
+	private String Message;
 
-	List<String> addedFname = new ArrayList<>();
-	List<String> commitedFname = new ArrayList<>();
+	private List<String> addedFname = new ArrayList<>();
+	private List<String> commitedFname = new ArrayList<>();
 	
 	public Vo_Commit() {
 		super();

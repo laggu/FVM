@@ -1,4 +1,4 @@
-package ui.local.south;
+package UI.local.south;
 
 public class Merge {
 
