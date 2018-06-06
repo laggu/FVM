@@ -1,30 +1,36 @@
 package Main;
 
-import java.util.ArrayList;
+import Network.Network;
 
-class Node{
-    private Status s;
-    private Node parent;
-    private ArrayList<Node> leaves;
-
-    String getProjectName(){
-        return s.getProjectName();
-    }
-
-    String getBranchName(){
-        return s.getBranch();
-    }
-
-    int getVersion(){
-        return s.getVersion();
-    }
-}
+import java.util.HashMap;
 
 public class CommitTree {
-    private Node root;
 
-    public CommitTree() {
+    private static CommitTree commitTree;
+
+    public static CommitTree getInstance() {
+        if (commitTree == null) {
+            commitTree = new CommitTree();
+            return commitTree;
+        } else {
+            return commitTree;
+        }
+    }
+
+    private Node root;
+    private HashMap<String, Node> commitPointer;
+
+    private CommitTree() {
         root = new Node();
+        commitPointer = new HashMap<String, Node>();
+        commitPointer.put("root", root);
+    }
+
+    public void addCommitNode(Status s){
+        Node parent = commitPointer.get(s.getPreviousCommit());
+        Node n = new Node(parent, s);
+        commitPointer.put(s.getCommitName(), n);
+        parent.addChild(n);
     }
 
 

@@ -41,7 +41,7 @@ public class Checkout extends BaseCommand{
 
         //
 
-        Iterator it = status.getList().iterator();
+        Iterator it = status.getAddedFileList().iterator();
         while (it.hasNext()) {
             String fileName = (String) it.next();
             File f = new File(status.getRootPath() + fileName);

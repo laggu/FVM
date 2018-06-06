@@ -24,5 +24,4 @@ public class Init extends BaseCommand{
         File dir = new File(homePath + "/.fvm/"+ projectName + "/branch/master");
         dir.mkdirs();
     }
-
 }

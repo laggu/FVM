@@ -26,7 +26,6 @@ public class Branch extends BaseCommand
         }
 
         dir.mkdirs();
-        status.setBranch(branchName);
-        status.setVersion(1);
+        Status.newInstance(branchName);
     }
 }

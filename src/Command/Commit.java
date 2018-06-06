@@ -18,7 +18,8 @@ public class Commit extends BaseCommand {
 		File dir = new File(branch_dir_str);
 		dir.mkdirs();
 
-		ArrayList<File> commitlist = status.getCommitedFile();
+		ArrayList<File> commitlist = status.getCommittedFileList();
+        commitlist.addAll(status.getNewAddedFileList());
 
 		// compare and find files to copy
 
@@ -64,7 +65,7 @@ public class Commit extends BaseCommand {
 			}
 		}
 
-		status.increaseVersion();
+		Status.newInstance();
 	}
 
 	private boolean isChanged(File f, File f2){
