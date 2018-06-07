@@ -2,8 +2,8 @@ package DB;
 
 public class Vo_Project {
 
-	private String PName;
-	private String PPath;
+	String PName;
+	String PPath;
 
 	public Vo_Project() {
 		super();

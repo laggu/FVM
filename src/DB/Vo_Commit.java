@@ -7,19 +7,19 @@ import java.util.List;
 
 public class Vo_Commit implements Serializable {
 
-	private String BName;
-	private String PName;
-	private String TName;
-	private String Message;
+	String BName;
+	String PName;
+	int TName;
+	String Message;
 
-	private List<String> addedFname = new ArrayList<>();
-	private List<String> commitedFname = new ArrayList<>();
-	
+	List<String> addedFname = new ArrayList<>();
+	List<String> commitedFname = new ArrayList<>();
+
 	public Vo_Commit() {
 		super();
 	}
 
-	public Vo_Commit(String bName, String pName, String tName, String message, List<String> addedFname,
+	public Vo_Commit(String bName, String pName, int tName, String message, List<String> addedFname,
 			List<String> commitedFname) {
 		super();
 		BName = bName;
@@ -46,11 +46,11 @@ public class Vo_Commit implements Serializable {
 		PName = pName;
 	}
 
-	public String getTName() {
+	public int getTName() {
 		return TName;
 	}
 
-	public void setTName(String tName) {
+	public void setTName(int tName) {
 		TName = tName;
 	}
 
@@ -78,67 +78,12 @@ public class Vo_Commit implements Serializable {
 		this.commitedFname = commitedFname;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((BName == null) ? 0 : BName.hashCode());
-		result = prime * result + ((Message == null) ? 0 : Message.hashCode());
-		result = prime * result + ((PName == null) ? 0 : PName.hashCode());
-		result = prime * result + ((TName == null) ? 0 : TName.hashCode());
-		result = prime * result + ((addedFname == null) ? 0 : addedFname.hashCode());
-		result = prime * result + ((commitedFname == null) ? 0 : commitedFname.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Vo_Commit other = (Vo_Commit) obj;
-		if (BName == null) {
-			if (other.BName != null)
-				return false;
-		} else if (!BName.equals(other.BName))
-			return false;
-		if (Message == null) {
-			if (other.Message != null)
-				return false;
-		} else if (!Message.equals(other.Message))
-			return false;
-		if (PName == null) {
-			if (other.PName != null)
-				return false;
-		} else if (!PName.equals(other.PName))
-			return false;
-		if (TName == null) {
-			if (other.TName != null)
-				return false;
-		} else if (!TName.equals(other.TName))
-			return false;
-		if (addedFname == null) {
-			if (other.addedFname != null)
-				return false;
-		} else if (!addedFname.equals(other.addedFname))
-			return false;
-		if (commitedFname == null) {
-			if (other.commitedFname != null)
-				return false;
-		} else if (!commitedFname.equals(other.commitedFname))
-			return false;
-		return true;
-	}
 
 	@Override
 	public String toString() {
 		return "Vo_Commit [BName=" + BName + ", PName=" + PName + ", TName=" + TName + ", Message=" + Message
 				+ ", FName=" + ", addedFname=" + addedFname + ", commitedFname=" + commitedFname + "]";
 	}
-
-	
 
 }

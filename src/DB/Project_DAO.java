@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 public class Project_DAO {
 
 	// insert
-	public int projectInsert(Vo_Project project) {
+	public static int projectInsert(Vo_Project project) {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into Project values(?, ?, sysdate)");
