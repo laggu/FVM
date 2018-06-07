@@ -9,6 +9,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import Main.Status;
+
 public class dbTest {
 
 	FVM_Interface service;
@@ -16,9 +18,10 @@ public class dbTest {
 	@Before
 	public void setUp() throws Exception {
 		System.out.println("setup");
+		
 		Commit_DAO user = new Commit_DAO();
-		Repository_DAO Rdao = new Repository_DAO();
-		service = new FVMImple(Rdao);
+		
+		service = new FVMImple(user);
 	}
 
 	@After
@@ -27,7 +30,7 @@ public class dbTest {
 		System.out.println("tear down");
 	}
 
-	@Test
+	/*@Test
 	public void insert() {
 		Vo_Commit user = new Vo_Commit();
 		List<String> sample = new ArrayList<>();
@@ -51,6 +54,23 @@ public class dbTest {
 
 		service.Insert(user);
 	
+	}*/
+	
+	@Test
+	public void select () {
+		Vo_Commit commit = new Vo_Commit();
+		ArrayList<Status> result = new ArrayList<>();
+		
+		commit.setPName("kim");
+		commit.setBName("bname");
+		commit.setTName(123456);
+		
+		result = service.CommitSelect(commit);		
+		
+		for (int i = 0; i < result.size(); i++) {
+			System.out.println(result.get(i).toString());
+		}
+		
 	}
 
 }

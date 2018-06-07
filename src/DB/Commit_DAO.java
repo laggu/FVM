@@ -1,11 +1,14 @@
 package DB;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 import DB.JDBCUtil;
+import Main.Status;
 
 public class Commit_DAO {
 
@@ -44,16 +47,13 @@ public class Commit_DAO {
 			ps.setString(3, commit.getBName());
 			ps.setInt(4, commit.getTName());
 			ps.setString(5, commit.getMessage());
-			System.out.println("-----------check --------------");
 
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();
-			System.out.println("-----------check --------------");
 
 			ps.clearParameters();
 			ps.close();
 			// 결과값 핸들린z
-			System.out.println("-----------check --------------");
 
 			for (int i = 0; i < addedFname.size(); i++) {
 				ps = con.prepareStatement(sqlFile.toString());
@@ -80,55 +80,89 @@ public class Commit_DAO {
 		} finally {
 			JDBCUtil.close(con, ps, rs);
 		}
-	return result;
+		return result;
 	}
-	
 
 	// select
-	public Vo_Commit CommitSelect(Vo_Commit commit) {
+	public static ArrayList<Status> CommitSelect(Vo_Commit commit) {
 
-		Vo_Commit user = null;
 		StringBuilder sql = new StringBuilder();
-		sql.append(
-				"select * from commitdata c, COMMITEDFILE cf where c.COMMITNO = cf.COMMITNO and bname =? and tname =? and pname=?");
+		sql.append("select * from commitdata c, commitedfile cf, project p where p.pname =c.pname and c.commitno=cf.commitno and c.pname =? order by c.commitno");
 
-		// select * from commitdata c, COMMITEDFILE cf
-		// where c.COMMITNO = cf.COMMITNO and bname = 'null' and tname = 'null' and
-		// pname = 'null';
-
+		/*
+		 * select * from commitdata c, commitedfile cf, project p where p.pname =
+		 * c.pname order by c.commitno;
+		 */
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		int result = 0;
+		ArrayList<Status> statuslist = new ArrayList<>();
 
+		Status status = null;
+				
 		try {
 			con = JDBCUtil.getConnection();
 			ps = con.prepareStatement(sql.toString());
-
 			// ? 의 값 바인딩
-			ps.setString(1, commit.getBName());
-			ps.setInt(2, commit.getTName());
-			ps.setString(3, commit.getPName());
-
+			ps.setString(1, commit.getPName());
 			// ps실행
 			rs = ps.executeQuery();
+	
+			int previousCommitNumber = -1;
+			ArrayList<File> list = null;
+			ArrayList<File> list2 = null;
+
 			while (rs.next()) {
-				user = new Vo_Commit();
-				user.setBName(rs.getString(1));
-				user.setTName(rs.getInt(2));
-				user.setPName(rs.getString(3));
-				user.setMessage(rs.getString(4));
-				user.setMessage(rs.getString(5));
-				user.setMessage(rs.getString(6));
+				if (previousCommitNumber != rs.getInt(1)) {
+
+					if (status != null) {
+						statuslist.add(status);
+					}
+
+					status = new Status();
+					
+					list = new ArrayList<File>();
+					list2 = new ArrayList<File>();
+					status.setAddedFileList(list);
+					status.setCommittedFileList(list2);
+					status.setProjectName(rs.getString(2));
+					status.setBranch(rs.getString(3));
+					status.setRootPath(rs.getString(11));
+					status.setVersion(rs.getInt(4));
+
+					previousCommitNumber = rs.getInt(1);
+				} else {
+					status = new Status();
+					
+					list = new ArrayList<File>();
+					list2 = new ArrayList<File>();
+					status.setAddedFileList(list);
+					status.setCommittedFileList(list2);
+					status.setProjectName(rs.getString(2));
+					status.setBranch(rs.getString(3));
+					status.setRootPath(rs.getString(11));
+					status.setVersion(rs.getInt(4));
+
+					if (rs.getString(8).contains("a")) {
+						list.add(new File(rs.getString(8)));
+					}
+
+					if (rs.getString(8).contains("c")) {
+						list2.add(new File(rs.getString(8)));
+					}
+				}
 			}
 
-			// 결과값 핸들린
+			statuslist.add(status);
 
+			// 결과값 핸들린
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			JDBCUtil.close(con, ps, rs);
 		}
-		return user;
+
+		return statuslist;
 	}
 }
