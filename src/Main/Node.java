@@ -19,16 +19,8 @@ class Node{
         chlidren = new ArrayList<>();
     }
 
-    String getProjectName(){
-        return status.getProjectName();
-    }
-
-    String getBranchName(){
-        return status.getBranch();
-    }
-
-    int getVersion(){
-        return status.getVersion();
+    public Status getStatus() {
+        return status;
     }
 
     Node getParentNode(){
