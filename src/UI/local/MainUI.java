@@ -6,12 +6,14 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+import ui.Remote.RemoteUI;
+
 public class MainUI extends JFrame {
-	JTabbedPane tab = new JTabbedPane();
-	JPanel local = new LocalUI();
-	JPanel remote = new JPanel();
+	private JTabbedPane tab = new JTabbedPane();
+	private JPanel local = new LocalUI();
+	private JPanel remote = new RemoteUI(this);
 	
-	MainUI() {
+	public MainUI() {
 		setTitle("File Version Management Program");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		

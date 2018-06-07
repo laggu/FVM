@@ -1,16 +1,16 @@
-package db;
+package DB;
 
 public class Vo_Remote {
 
 	String Id;
-	String pw;
+	int pw;
 
 	public Vo_Remote() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Vo_Remote(String id, String pw) {
+	public Vo_Remote(String id, int pw) {
 		super();
 		Id = id;
 		this.pw = pw;
@@ -24,11 +24,11 @@ public class Vo_Remote {
 		Id = id;
 	}
 
-	public String getPw() {
+	public int getPw() {
 		return pw;
 	}
 
-	public void setPw(String pw) {
+	public void setPw(int pw) {
 		this.pw = pw;
 	}
 

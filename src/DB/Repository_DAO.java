@@ -1,4 +1,4 @@
-package db;
+package DB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 
 public class Repository_DAO {
 	// insert
-		public int repositoryInsert(Vo_Repository repository) {
+		public static int repositoryInsert(Vo_Repository repository) {
 
 			StringBuilder sql = new StringBuilder();
 			sql.append("insert into Repository values(?,?,sysdate)");

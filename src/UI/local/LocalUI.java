@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public class LocalUI extends JPanel {
 	
-	LocalUI() {
+	public LocalUI() {
 		
 		setLayout(new BorderLayout());
 		

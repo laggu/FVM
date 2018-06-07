@@ -1,4 +1,4 @@
-package UI.Remote;
+package ui.Remote;
 
 import java.awt.GridBagConstraints;
 
@@ -16,15 +16,15 @@ public class East extends JPanel {
 
 		ButtonGroup topGroup = new ButtonGroup();
 
-		button1 = new JButton("·Î±×ÀÎ");
+		button1 = new JButton("ï¿½Î±ï¿½ï¿½ï¿½");
 		button1.setBounds(250, 200, 100, 30);
 
 		add(button1);
 
-		button2 = new JButton("È¸¿ø°¡ÀÔ");
+		button2 = new JButton("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		add(button2);
 
-		button3 = new JButton("¸®Æ÷ÁöÅÍ¸®");
+		button3 = new JButton("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½");
 		add(button3);
 
 		Box topBox = Box.createVerticalBox();

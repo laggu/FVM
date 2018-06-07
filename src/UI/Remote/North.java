@@ -1,4 +1,4 @@
-package UI.Remote;
+package ui.Remote;
 
 public class North {
 
