@@ -26,15 +26,14 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class Test2 extends JPanel {
 
 	public Test2(JFrame frame) {
-		frame.setResizable(false); // Å©±â º¯È­ »ç¿ë ¿©ºÎ
 		this.init();
-		frame.setResizable(false); // Å©±â º¯È­ »ç¿ë ¿©ºÎ
+		frame.setResizable(false);
 		this.start();
 		frame.setSize(950, 450);
 		Toolkit tk = Toolkit.getDefaultToolkit();
 		Dimension di = tk.getScreenSize();
 		Dimension di1 = this.getSize();
-		// Æû À§Ä¡ Áß¾Ó¿¡ À§Ä¡
+		
 		frame.setLocation((int) (di.getHeight() / 2 - di1.getHeight() / 2),
 				(int) (di.getWidth() / 2 - di1.getWidth() / 2));
 
@@ -48,10 +47,10 @@ public class Test2 extends JPanel {
 
 		JPanel jp = new JPanel(new BorderLayout(5, 5));
 		JPanel jp1 = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		jp1.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "Á¤º¸ Ã¢ "));
+		jp1.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "ì •ë³´ ì°½"));
 
 		DefaultMutableTreeNode node;
-		node = new DefaultMutableTreeNode("¹Ì±¹");
+		node = new DefaultMutableTreeNode("ë©”ì¸ë…¸ë“œ");
 		node.add(new DefaultMutableTreeNode("Hi~"));
 		node.add(new DefaultMutableTreeNode("Hello~"));
 		node.add(new DefaultMutableTreeNode("Nice to meet you~"));
@@ -59,7 +58,7 @@ public class Test2 extends JPanel {
 		jp1.add(xTree);
 
 		DefaultMutableTreeNode node2;
-		node2 = new DefaultMutableTreeNode("¹Ì±¹");
+		node2 = new DefaultMutableTreeNode("ë©”ì¸ë…¸ë“œï¿½");
 		node2.add(new DefaultMutableTreeNode("Hi~"));
 		node2.add(new DefaultMutableTreeNode("Hello~"));
 		node2.add(new DefaultMutableTreeNode("Nice to meet you~"));
@@ -68,10 +67,10 @@ public class Test2 extends JPanel {
 		jp1.add(xTree2);
 
 		jp.add("Center", jp1);
-		// ÇÏ´Ü ÆĞ³Î
+		// ï¿½Ï´ï¿½ ï¿½Ğ³ï¿½
 		JPanel jp2 = new JPanel(new GridLayout(1, 4, 1, 1));
 
-		// ÇÏ´Ü ¹öÆ°µé
+		// ï¿½Ï´ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½
 		JButton button1 = new JButton("Push");
 		JButton button2 = new JButton("pull");
 		JButton button3 = new JButton("push");
@@ -91,11 +90,11 @@ public class Test2 extends JPanel {
 		jp2.add(button3);
 		jp2.add(button4);
 		// jp.add(jp2,BorderLayout.SOUTH);
-		jp.add("South", jp2); // ±âº»ÆĞ³Î ÇÏ´ÜºÎ¿¡ ¹öÆ° 7°³ Ãß°¡
+		jp.add("South", jp2); 
 
 		JPanel jp3 = new JPanel(new GridLayout(6, 1, 1, 1));
-		// ÇÏ´Ü ¹öÆ°µé
-		JButton button3_1 = new JButton("·Î±×ÀÎ");
+		
+		JButton button3_1 = new JButton("ë¡œê·¸ì¸");
 
 		button3_1.addActionListener(new ActionListener() {
 			@Override
@@ -104,7 +103,7 @@ public class Test2 extends JPanel {
 			}
 		});
 
-		JButton button3_2 = new JButton("È¸¿ø°¡ÀÔ");
+		JButton button3_2 = new JButton("íšŒì›ê°€ì…");
 
 		button3_2.addActionListener(new ActionListener() {
 			@Override
@@ -119,39 +118,35 @@ public class Test2 extends JPanel {
 		String combos2[] = { "1", "2", "3" };
 		JComboBox<String> cobo2 = new JComboBox<String>(combos);
 
-		// 2Ä­À» ³ÖÀ» ÆÇ³Ú
 		JPanel jp3_1 = new JPanel(new GridLayout(1, 2, 1, 1));
-		jp3_1.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "°³ÀÎ Á¤º¸ È®ÀÎ"));
+		jp3_1.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "íšŒì›"));
 		jp3_1.add(button3_1);
 		jp3_1.add(button3_2);
 		jp3.add(jp3_1);
 
 		JPanel jp3_2 = new JPanel(new GridLayout(2, 2, 1, 1));
-		jp3_2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "¸®Æ÷ÁöÅÍ¸®"));
+		jp3_2.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "ë¦¬í¬ì§€í„°ë¦¬"));
 		jp3_2.add(cobo);
 		jp3.add(jp3_2);
 
 		JPanel jp3_3 = new JPanel(new GridLayout(2, 2, 1, 1));
-		jp3_3.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "ºê·±Ä¡"));
+		jp3_3.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "ë¸ŒëŸ°ì¹˜"));
 		jp3_3.add(cobo2);
 		jp3.add(jp3_3);
 
 		JPanel jp3_4 = new JPanel(new GridLayout(1, 2, 1, 1));
-		jp3_4.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "¸Ş½ÃÁö"));
+		jp3_4.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED), "ë©”ì‹œì§€"));
 		JLabel la = new JLabel("aaaaaaaaaaaa" + '\n' + "aaaaaaaaaaaaa");
 		jp3_4.add(la);
 		jp3.add(jp3_4);
 
-		this.add(jp); // ±âº» ÆĞ³Î Ãß°¡
+		this.add(jp); 
 		this.add("East", jp3);
 
 		JPanel jp4 = new JPanel(new BorderLayout());
 		JPanel jp5 = new JPanel(new GridLayout(4, 1));
 
-		// ¶óº§¿¡ ¸Â´Â ÅØ½ºÆ® ÇÊµå °¢°¢ ÆĞ³Î¿¡ ´ã¾Æ¼­ Ãß°¡
 		JPanel jp6 = new JPanel(new GridLayout(4, 1));
-		
-		
 
 	}
 
@@ -162,7 +157,7 @@ public class Test2 extends JPanel {
 
 	public static void main(String[] args) {
 
-		JFrame jf = new JFrame("aa");
+		JFrame jf = new JFrame("ë©”ì¸");
 		jf.add(new Test2(jf));
 
 	}
