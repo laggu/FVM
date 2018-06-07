@@ -1,26 +1,32 @@
 package ui.local;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ui.local.south.AddButton;
+import ui.local.south.BranchButton;
+import ui.local.south.CheckOutButton;
+import ui.local.south.CommitButton;
+import ui.local.south.InitButton;
+import ui.local.south.MergeButton;
+
 public class South extends JPanel {	
-	South() {
-		JButton b1,b2,b3,b4,b5,b6;
+	JButton b1,b2,b3,b4,b5,b6;
+	
+	South() {		
+		setLayout(new GridLayout(1,6,3,3));
 		
-		b1=new JButton("Init");
-		b3=new JButton("Add");
-		b2=new JButton("Commit");
-		b4=new JButton("Branch");
-		b5=new JButton("Merge");
-		b6=new JButton("Check Out");
-		
-		b1.setSize(30, 30);
-		b2.setSize(20, 20);
-		b3.setSize(20, 20);
-		b4.setSize(20, 20);
-		b5.setSize(20, 20);
-		b6.setSize(20, 20);
+		b1=new InitButton();
+		b2=new AddButton();
+		b3=new CommitButton();
+		b4=new BranchButton();
+		b5=new MergeButton();
+		b6=new CheckOutButton();
 		
 		add(b1);
 		add(b2);
@@ -28,6 +34,8 @@ public class South extends JPanel {
 		add(b4);
 		add(b5);
 		add(b6);
+		
+		setBackground(Color.lightGray);
 		
 	}
 }
