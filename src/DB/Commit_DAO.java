@@ -1,28 +1,29 @@
 package DB;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Iterator;
 import java.util.List;
 
+import DB.JDBCUtil;
+
 public class Commit_DAO {
+
+	private static int start = 0;
+
 	// insert
-	public int Insert(Vo_Commit commit) {
+	public static int Insert(Vo_Commit commit) {
 
 		List<String> addedFname = commit.getAddedFname();
 		List<String> commitedFname = commit.getCommitedFname();
 
 		StringBuilder sqlData = new StringBuilder();
-		sqlData.append("insert into CommitData values(CommitDataIndex.nextval,?,?,?,sysdate,?)");
-
+		sqlData.append("insert into CommitData values(?,?,?,?,sysdate,?)");
 		// insert into CommitData values(1, 'PName', 'BName', 'TName', sysdate,
 		// 'Message');
 
 		StringBuilder sqlFile = new StringBuilder();
-		sqlFile.append("insert into CommitedFile values(?,?,CommitedFileIndex.nextval)");
-
+		sqlFile.append("insert into CommitedFile values(?,?,?)");
 		// insert into CommitedFile values('fname','fstatus',
 		// CommitedFileIndex.nextval);
 
@@ -31,74 +32,57 @@ public class Commit_DAO {
 		ResultSet rs = null;
 		int result = 0;
 
-		Iterator i1 = addedFname.iterator();
-		Iterator i2 = commitedFname.iterator();
-
 		// Commitdata insert
 		try {
+
 			con = JDBCUtil.getConnection();
 			ps = con.prepareStatement(sqlData.toString());
 
 			// ? 의 값 바인딩
-			ps.setString(1, commit.getPName());
-			ps.setString(2, commit.getBName());
-			ps.setString(3, commit.getTName());
-			ps.setString(4, commit.getMessage());
+			ps.setInt(1, ++start);
+			ps.setString(2, commit.getPName());
+			ps.setString(3, commit.getBName());
+			ps.setInt(4, commit.getTName());
+			ps.setString(5, commit.getMessage());
+			System.out.println("-----------check --------------");
 
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();
+			System.out.println("-----------check --------------");
 
-			// 결과값 핸들린
+			ps.clearParameters();
+			ps.close();
+			// 결과값 핸들린z
+			System.out.println("-----------check --------------");
+
+			for (int i = 0; i < addedFname.size(); i++) {
+				ps = con.prepareStatement(sqlFile.toString());
+				ps.setString(1, addedFname.get(i));
+				ps.setString(2, "a");
+				ps.setInt(3, start);
+				result = ps.executeUpdate();
+				ps.clearParameters();
+				ps.close();
+			}
+
+			for (int i = 0; i < commitedFname.size(); i++) {
+				ps = con.prepareStatement(sqlFile.toString());
+				ps.setString(1, commitedFname.get(i));
+				ps.setString(2, "c");
+				ps.setInt(3, start);
+				result = ps.executeUpdate();
+				ps.clearParameters();
+				ps.close();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(con, ps, rs);
 		}
-		
-		
-
-		// Commitedfile insert
-		while (i1.hasNext()) {
-
-			try {
-				con = JDBCUtil.getConnection();
-				ps = con.prepareStatement(sqlData.toString());
-
-				// ? 의 값 바인딩
-				ps.setString(1, (String) i1.next()); // added -> filename / a
-				ps.setString(2, "a"); // added -> filename / a
-
-				// ps실행 => insert 완료 결과값
-				result = ps.executeUpdate();
-
-				// 결과값 핸들린
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-
-		while (i2.hasNext()) {
-
-			try {
-				con = JDBCUtil.getConnection();
-				ps = con.prepareStatement(sqlFile.toString());
-
-				// ? 의 값 바인딩
-				ps.setString(1, (String) i2.next()); // added -> filename / a
-				ps.setString(2, "c"); // added -> filename / a
-
-				// ps실행 => insert 완료 결과값
-				result = ps.executeUpdate();
-
-				// 결과값 핸들린
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		JDBCUtil.close(con, ps, rs);
-		return result;
+	return result;
 	}
+	
 
 	// select
 	public Vo_Commit CommitSelect(Vo_Commit commit) {
@@ -123,7 +107,7 @@ public class Commit_DAO {
 
 			// ? 의 값 바인딩
 			ps.setString(1, commit.getBName());
-			ps.setString(2, commit.getTName());
+			ps.setInt(2, commit.getTName());
 			ps.setString(3, commit.getPName());
 
 			// ps실행
@@ -131,7 +115,7 @@ public class Commit_DAO {
 			while (rs.next()) {
 				user = new Vo_Commit();
 				user.setBName(rs.getString(1));
-				user.setTName(rs.getString(2));
+				user.setTName(rs.getInt(2));
 				user.setPName(rs.getString(3));
 				user.setMessage(rs.getString(4));
 				user.setMessage(rs.getString(5));

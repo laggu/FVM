@@ -7,7 +7,7 @@ public class FVMImple implements FVM_Interface {
 	Repository_DAO RepositoryDAO;
 	Commit_DAO CommitDAO;
 	
-	public FVMImple() {
+	public FVMImple(Repository_DAO rdao) {
 		super();
 	}
 

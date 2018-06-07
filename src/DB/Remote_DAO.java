@@ -7,12 +7,12 @@ import java.sql.ResultSet;
 public class Remote_DAO {
 	
 	// insert
-	public int remoteInsert(Vo_Remote remote) {
+	public static int remoteInsert(Vo_Remote remote) {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("insert into Remote values(?,?)");
 
-		// insert into Remote values('id','pw');
+		// insert into Remote values('id','123123');
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -25,7 +25,7 @@ public class Remote_DAO {
 
 			// ? 의 값 바인딩
 			ps.setString(1, remote.getId());
-			ps.setString(2, remote.getPw());
+			ps.setInt(2, remote.getPw());
 
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();

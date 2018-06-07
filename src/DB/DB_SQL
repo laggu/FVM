@@ -20,7 +20,7 @@ CREATE TABLE CommitData(
 		CommitNo                      		NUMBER(10)		 NULL ,
 		PName                         		VARCHAR2(100)		 NULL ,
 		BName                         		VARCHAR2(100)		 NULL ,
-		TName                         		VARCHAR2(100)		 NULL ,
+		TName                         		NUMBER(10)		 NULL ,
 		RegDate                       		DATE		 NULL ,
 		Message                       		VARCHAR2(500)		 NULL 
 );
@@ -39,7 +39,7 @@ COMMENT ON COLUMN CommitData.Message is 'Message';
 /**********************************/
 CREATE TABLE Remote(
 		Id                            		VARCHAR2(100)		 NULL ,
-		Pw                            		VARCHAR2(100)		 NULL 
+		Pw                            		NUMBER(100)		 NULL 
 );
 
 COMMENT ON TABLE Remote is 'Remote';
