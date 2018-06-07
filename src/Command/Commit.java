@@ -1,5 +1,6 @@
 package Command;
 
+import Main.CommitTree;
 import Main.Status;
 
 import java.io.*;
@@ -13,58 +14,66 @@ public class Commit extends BaseCommand {
 	@Override
 	public void execute() {
 		Status status = Status.getInstance();
-		String branch_dir_str = new String(status.getRootPath() + "/.fvm/branch/" + status.getBranch()+"/"+status.getVersion());
 
-		File dir = new File(branch_dir_str);
+		File dir = new File(status.getBranchPath());
 		dir.mkdirs();
 
 		ArrayList<File> commitlist = status.getCommittedFileList();
         commitlist.addAll(status.getNewAddedFileList());
 
-		// compare and find files to copy
+        ArrayList<File> checkList = status.cloneList(status.getAddedFileList());
+		CommitTree commitTree = CommitTree.getInstance();
+		Status previousCommit = status;
 
+        while(!checkList.isEmpty()){
+			previousCommit = commitTree.getParent(previousCommit);
+			ArrayList<File> previousCommitList = previousCommit.getCommittedFileList();
 
-		//need to write////////////////////////////////////////////////////////////////////
+			Iterator it = previousCommitList.iterator();
 
+			while (it.hasNext()) {
+				File previousFile = (File)it.next();
 
-		//
+				Iterator it_checklist = checkList.iterator();
 
-
-		Iterator it = commitlist.iterator();
-
-		while (it.hasNext()) {
-			String filename = (String)it.next();
-			File new_file = new File(branch_dir_str+filename);
-			File original_file = new File(status.getRootPath() + filename);
-
-			BufferedReader fr = null;
-			BufferedWriter fw = null;
-
-			try {
-				fr = new BufferedReader(new FileReader(original_file));
-				fw = new BufferedWriter(new FileWriter(new_file));
-
-				String temp;
-
-				while((temp = fr.readLine())!= null){
-					fw.write(temp);
-					fw.flush();
+				while (it_checklist.hasNext()) {
+					File currentFile = (File)it_checklist.next();
+					if (isSameFile(currentFile,previousFile,status.getRootPath(),previousCommit.getBranchPath())) {
+						if(isChanged(previousFile,currentFile)){
+							System.out.println(previousFile);
+							System.out.println(currentFile);
+							System.out.println("changed");
+							commitlist.add(previousFile);
+						}
+						//it_checklist.remove();
+						System.out.println("remove");
+						System.out.println(checkList);
+						checkList.remove(currentFile);
+						System.out.println(checkList);
+						break;
+					}
 				}
 
-				fw.flush();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			finally {
-				try {
-					fw.close();
-					fr.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 		}
 
+		System.out.println(commitlist);
+
+		Iterator it = commitlist.iterator();
+		ArrayList<File> list = new ArrayList<>();
+
+		while (it.hasNext()) {
+			File original_file = (File)it.next();
+			String filename = original_file.getAbsolutePath().replace(status.getRootPath(), "");
+			File new_file = new File(status.getBranchPath()+filename);
+
+			copyFile(original_file, new_file);
+
+			list.add(new_file);
+		}
+
+		status.setCommittedFileList(list);
+		commitTree.addCommitNode(status);
 		Status.newInstance();
 	}
 
@@ -102,6 +111,53 @@ public class Commit extends BaseCommand {
 		// 해싱된 byte 배열을 digest메서드의 반환값을 통해 얻는다.
 		byte[] hashbytes = md.digest();
 
+		System.out.println(new String(hashbytes));
+
 		return hashbytes.toString();
+	}
+
+	private boolean isSameFile(File original, File commitedFIle, String rootPath, String branchPath){
+        System.out.println(original);
+        System.out.println(commitedFIle);
+        System.out.println(rootPath);
+        System.out.println(branchPath);
+		System.out.println(commitedFIle.getAbsolutePath());
+		String originalName = original.getAbsolutePath().replace(rootPath, "");
+		String commitFileName = commitedFIle.getAbsolutePath().replace(branchPath, "");
+
+		System.out.println(originalName);
+		System.out.println(commitFileName);
+
+		System.out.println("isSame?? = " + originalName.equals(commitFileName) );
+		return originalName.equals(commitFileName);
+	}
+
+	private void copyFile(File from, File to){
+		BufferedReader fr = null;
+		BufferedWriter fw = null;
+
+		try {
+			fr = new BufferedReader(new FileReader(from));
+			fw = new BufferedWriter(new FileWriter(to));
+
+			String temp;
+
+			while((temp = fr.readLine())!= null){
+				fw.write(temp);
+				fw.flush();
+			}
+
+			fw.flush();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				fw.close();
+				fr.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

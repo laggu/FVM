@@ -33,5 +33,13 @@ public class CommitTree {
         parent.addChild(n);
     }
 
+    public Status getStatus(String commitName){
+        Node n = commitPointer.get(commitName);
+        return n.getStatus();
+    }
 
+    public Status getParent(Status s){
+        Node parent = commitPointer.get(s.getPreviousCommit());
+        return parent.getStatus();
+    }
 }
