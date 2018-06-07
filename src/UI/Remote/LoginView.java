@@ -1,4 +1,4 @@
-package UI.Remote;
+package ui.Remote;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -54,7 +54,7 @@ public class LoginView extends JDialog {
 		passText.setBounds(100, 40, 160, 25);
 		panel.add(passText);
 
-		JButton button = new JButton("È®ÀÎ");
+		JButton button = new JButton("È®ï¿½ï¿½");
 
 		button.addActionListener(new ActionListener() 
 		{
@@ -68,7 +68,7 @@ public class LoginView extends JDialog {
 		button.setBounds(60, 70, 80, 25);
 		panel.add(button);
 
-		JButton button2 = new JButton("Ãë¼Ò");
+		JButton button2 = new JButton("ï¿½ï¿½ï¿½");
 		button2.setBounds(140, 70, 80, 25);
 		
 		button2.addActionListener(new ActionListener() 

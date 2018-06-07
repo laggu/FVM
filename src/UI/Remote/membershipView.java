@@ -1,4 +1,4 @@
-package UI.Remote;
+package ui.Remote;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ public class membershipView extends JDialog {
 	
 	public membershipView() {
 		// setting
-		setTitle("È¸¿ø°¡ÀÔ");
+		setTitle("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		setSize(280, 150);
 		setResizable(false);
 		setLocation(800, 450);
@@ -52,7 +52,7 @@ public class membershipView extends JDialog {
 		userText.setBounds(100, 40, 160, 25);
 		panel.add(userText);
 		
-		JButton button = new JButton("È®ÀÎ");
+		JButton button = new JButton("È®ï¿½ï¿½");
 		button.setBounds(60, 70, 80, 25);
 		panel.add(button);
 		
@@ -65,7 +65,7 @@ public class membershipView extends JDialog {
 			}
 		});
 		
-		JButton button2 = new JButton("Ãë¼Ò");
+		JButton button2 = new JButton("ï¿½ï¿½ï¿½");
 		button2.setBounds(140, 70, 80, 25);
 		panel.add(button2);
 		
