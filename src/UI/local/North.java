@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import java.awt.Color;
 import java.awt.Dimension;

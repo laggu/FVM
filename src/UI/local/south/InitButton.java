@@ -1,4 +1,4 @@
-package ui.local.south;
+package UI.local.south;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;

@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import java.awt.BorderLayout;
 
@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import ui.Remote.RemoteUI;
+import UI.Remote.RemoteUI;
 
 public class MainUI extends JFrame {
 	private JTabbedPane tab = new JTabbedPane();
