@@ -1,4 +1,4 @@
-package UI.local;
+package ui.local;
 
 import java.awt.BorderLayout;
 

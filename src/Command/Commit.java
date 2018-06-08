@@ -1,5 +1,6 @@
 package Command;
 
+import DB.Commit_DAO;
 import Main.CommitTree;
 import Main.Status;
 
@@ -79,6 +80,7 @@ public class Commit extends BaseCommand {
 		System.out.println(status.getAddedFileList());
 		status.getAddedFileList().addAll(status.getNewAddedFileList());
 		commitTree.addCommitNode(status);
+		Commit_DAO.Insert(status);
 		Status.newInstance();
 	}
 

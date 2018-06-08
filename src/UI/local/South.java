@@ -1,4 +1,4 @@
-package UI.local;
+package ui.local;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -8,12 +8,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import UI.local.south.AddButton;
-import UI.local.south.BranchButton;
-import UI.local.south.CheckOutButton;
-import UI.local.south.CommitButton;
-import UI.local.south.InitButton;
-import UI.local.south.MergeButton;
+import ui.local.south.AddButton;
+import ui.local.south.BranchButton;
+import ui.local.south.CheckOutButton;
+import ui.local.south.CommitButton;
+import ui.local.south.InitButton;
+import ui.local.south.MergeButton;
 
 public class South extends JPanel {	
 	JButton b1,b2,b3,b4,b5,b6;

@@ -1,4 +1,4 @@
-package UI.local;
+package ui.local;
 
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -24,11 +24,13 @@ public class East extends JPanel {
 		cbr=new JTextField("");
 		l2=new JLabel("Commit Message: ");
 		cm = new JTextArea("");
+
 		
 		add(l1);
 		add(cbr);
 		add(l2);
 		add(cm);
+		
 		
 	}
 
