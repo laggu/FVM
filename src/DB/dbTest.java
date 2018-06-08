@@ -1,8 +1,8 @@
-
 package DB;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,42 +31,49 @@ public class dbTest {
 		System.out.println("tear down");
 	}
 
-	/*@Test
+	@Test
 	public void insert() {
-		Vo_Commit user = new Vo_Commit();
-		List<String> sample = new ArrayList<>();
-		List<String> sample2 = new ArrayList<>();
 		
-		user.setBName("bame");
-		user.setPName("pame");
-		user.setTName(20);
-		user.setMessage("mg");
+		Status status = Status.emptyInstance();
 		
-		sample.add("file1");
-		sample.add("file2");
-		sample.add("file3");
+		ArrayList<File> sample = new ArrayList<>();
+		ArrayList<File> sample2 = new ArrayList<>();
 		
-		sample2.add("file4");
-		sample2.add("file5");
+		status.setBranch("new bb");
+		status.setProjectName("kim");
+		status.setVersion(0002);
+		status.setMessage("new mm");
+		
+		sample.add(new File("file1"));
+		sample.add(new File("file2"));
+		sample.add(new File("file3"));
+		
+		sample2.add(new File("file4"));
+		sample2.add(new File("file5"));
+		sample2.add(new File("file6"));
 				
-		user.setAddedFname(sample);
-		user.setCommitedFname(sample2);
+		status.setAddedFileList(sample);
+		status.setCommittedFileList(sample2);
 				
+		status.setRootPath(System.getProperty("user.dir"));
+		System.out.println(System.getProperty("user.dir"));
+		System.out.println(sample.get(0).getAbsolutePath());
 
-		service.Insert(user);
+		service.Insert(status);
 	
-	}*/
+	}
 	
 	@Test
 	public void select () {
-		Vo_Commit commit = new Vo_Commit();
+		
+		Status status = Status.emptyInstance();
 		ArrayList<Status> result = new ArrayList<>();
 		
-		commit.setPName("kim");
-		commit.setBName("bname");
-		commit.setTName(123456);
-		
-		result = service.CommitSelect(commit);		
+		/*status.setProjectName("kim");
+		status.setBranch("bname");
+		status.setVersion(123456);
+		*/
+		result = service.CommitSelect("kim");		
 		
 		for (int i = 0; i < result.size(); i++) {
 			System.out.println(result.get(i).toString());

@@ -12,8 +12,8 @@ public interface FVM_Interface {
 	
 	public int repositoryInsert(Vo_Repository repository);
 	
-	public int Insert(Vo_Commit commit);
+	public int Insert(Status status);
 	
-	public ArrayList<Status> CommitSelect(Vo_Commit commit);
+	public ArrayList<Status> CommitSelect(String projectName);
 
 }

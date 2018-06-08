@@ -44,13 +44,13 @@ public class FVMImple implements FVM_Interface {
 	}
 
 	@Override
-	public int Insert(Vo_Commit commit) {
-		return CommitDAO.Insert(commit);
+	public int Insert(Status status) {
+		return CommitDAO.Insert(status);
 	}
 
 	@Override
-	public ArrayList<Status> CommitSelect(Vo_Commit commit) {
-		return CommitDAO.CommitSelect(commit);
+	public ArrayList<Status> CommitSelect(String projectName) {
+		return CommitDAO.CommitSelect(projectName);
 	}
 
 	public Project_DAO getProjectDAO() {

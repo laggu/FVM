@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.List;
 
 import DB.JDBCUtil;
 import Main.Status;
@@ -15,11 +14,16 @@ public class Commit_DAO {
 	private static int start = 0;
 
 	// insert
-	public static int Insert(Vo_Commit commit) {
+	public static int Insert(Status status) {
 
-		List<String> addedFname = commit.getAddedFname();
-		List<String> commitedFname = commit.getCommitedFname();
+		ArrayList<String> addedFname = Status.getFileNameFromList(status.getRootPath(), status.getAddedFileList());
+		ArrayList<String> commitedFname = Status.getFileNameFromList(status.getRootPath(), status.getCommittedFileList());
 
+		System.out.println(status.getAddedFileList());
+		System.out.println(status.getCommittedFileList());
+		System.out.println(addedFname);
+		System.out.println(commitedFname);
+		
 		StringBuilder sqlData = new StringBuilder();
 		sqlData.append("insert into CommitData values(?,?,?,?,sysdate,?)");
 		// insert into CommitData values(1, 'PName', 'BName', 'TName', sysdate,
@@ -43,10 +47,10 @@ public class Commit_DAO {
 
 			// ? 의 값 바인딩
 			ps.setInt(1, ++start);
-			ps.setString(2, commit.getPName());
-			ps.setString(3, commit.getBName());
-			ps.setInt(4, commit.getTName());
-			ps.setString(5, commit.getMessage());
+			ps.setString(2, status.getProjectName());
+			ps.setString(3, status.getBranch());
+			ps.setInt(4, status.getVersion());
+			ps.setString(5, status.getMessage());
 
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();
@@ -54,7 +58,7 @@ public class Commit_DAO {
 			ps.clearParameters();
 			ps.close();
 			// 결과값 핸들린z
-
+			
 			for (int i = 0; i < addedFname.size(); i++) {
 				ps = con.prepareStatement(sqlFile.toString());
 				ps.setString(1, addedFname.get(i));
@@ -84,7 +88,7 @@ public class Commit_DAO {
 	}
 
 	// select
-	public static ArrayList<Status> CommitSelect(Vo_Commit commit) {
+	public static ArrayList<Status> CommitSelect(String projectName) {
 
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * from commitdata c, commitedfile cf, project p where p.pname =c.pname and c.commitno=cf.commitno and c.pname =? order by c.commitno");
@@ -97,15 +101,14 @@ public class Commit_DAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		ArrayList<Status> statuslist = new ArrayList<>();
-
 		Status status = null;
+		ArrayList<Status> statuslist = new ArrayList<>();
 				
 		try {
 			con = JDBCUtil.getConnection();
 			ps = con.prepareStatement(sql.toString());
 			// ? 의 값 바인딩
-			ps.setString(1, commit.getPName());
+			ps.setString(1, projectName);
 			// ps실행
 			rs = ps.executeQuery();
 	
@@ -120,7 +123,7 @@ public class Commit_DAO {
 						statuslist.add(status);
 					}
 
-					status = new Status();
+					status = Status.emptyInstance();
 					
 					list = new ArrayList<File>();
 					list2 = new ArrayList<File>();
@@ -133,7 +136,7 @@ public class Commit_DAO {
 
 					previousCommitNumber = rs.getInt(1);
 				} else {
-					status = new Status();
+					/*status = Status.emptyInstance();
 					
 					list = new ArrayList<File>();
 					list2 = new ArrayList<File>();
@@ -142,7 +145,7 @@ public class Commit_DAO {
 					status.setProjectName(rs.getString(2));
 					status.setBranch(rs.getString(3));
 					status.setRootPath(rs.getString(11));
-					status.setVersion(rs.getInt(4));
+					status.setVersion(rs.getInt(4));*/
 
 					if (rs.getString(8).contains("a")) {
 						list.add(new File(rs.getString(8)));
