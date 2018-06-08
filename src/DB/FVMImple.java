@@ -1,5 +1,10 @@
 package DB;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import Main.Status;
+
 public class FVMImple implements FVM_Interface {
 
 	Project_DAO ProjectDAO;
@@ -17,6 +22,10 @@ public class FVMImple implements FVM_Interface {
 		RemoteDAO = remoteDAO;
 		RepositoryDAO = repositoryDAO;
 		CommitDAO = commitDAO;
+	}
+
+	public FVMImple(Commit_DAO user) {
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -40,7 +49,7 @@ public class FVMImple implements FVM_Interface {
 	}
 
 	@Override
-	public Vo_Commit CommitSelect(Vo_Commit commit) {
+	public ArrayList<Status> CommitSelect(Vo_Commit commit) {
 		return CommitDAO.CommitSelect(commit);
 	}
 

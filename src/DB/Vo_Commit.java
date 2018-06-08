@@ -19,6 +19,12 @@ public class Vo_Commit implements Serializable {
 		super();
 	}
 
+	public Vo_Commit(String bName, String pName, int tName) {
+		this.BName = bName;
+		this.PName = pName;
+		this.TName = tName;
+	}
+	
 	public Vo_Commit(String bName, String pName, int tName, String message, List<String> addedFname,
 			List<String> commitedFname) {
 		super();

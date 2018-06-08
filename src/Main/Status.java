@@ -26,6 +26,9 @@ public class Status implements Cloneable{
         return status;
     }
 
+
+	
+
     public static void setStatus(Status s){
 		status = s;
 	}
@@ -39,7 +42,7 @@ public class Status implements Cloneable{
 	private ArrayList<File> committedFileList = null;
 	private String previousCommit;
 
-	private Status() {
+	public Status() {
 		super();
 		this.branch = "master";
 		this.version = 1;
@@ -48,8 +51,20 @@ public class Status implements Cloneable{
         committedFileList = new ArrayList<>();
         this.previousCommit = "root";
 	}
+	
+    public void setAddedFileList(ArrayList<File> addedFileList) {
+		this.addedFileList = addedFileList;
+	}
 
-    private Status(Status status){
+	public void setCommittedFileList(ArrayList<File> committedFileList) {
+		this.committedFileList = committedFileList;
+	}
+
+	public void setPreviousCommit(String previousCommit) {
+		this.previousCommit = previousCommit;
+	}
+
+	private Status(Status status){
         this.branch = status.branch;
         this.version = status.version + 1;
 		rootPath = status.rootPath;
@@ -161,6 +176,13 @@ public class Status implements Cloneable{
 
         return new_list;
     }
+
+	@Override
+	public String toString() {
+		return "Status [projectName=" + projectName + ", branch=" + branch + ", version=" + version + ", rootPath="
+				+ rootPath + ", newAddedFileList=" + newAddedFileList + ", addedFileList=" + addedFileList
+				+ ", committedFileList=" + committedFileList + ", previousCommit=" + previousCommit + "]";
+	}
 
 	@Override
 	protected Object clone() throws CloneNotSupportedException {
