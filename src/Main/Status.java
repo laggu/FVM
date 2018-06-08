@@ -26,8 +26,9 @@ public class Status implements Cloneable{
         return status;
     }
 
-
-	
+    public static Status emptyInstance(){
+		return new Status();
+	}
 
     public static void setStatus(Status s){
 		status = s;
@@ -42,7 +43,7 @@ public class Status implements Cloneable{
 	private ArrayList<File> committedFileList = null;
 	private String previousCommit;
 
-	public Status() {
+	private Status() {
 		super();
 		this.branch = "master";
 		this.version = 1;
@@ -54,10 +55,6 @@ public class Status implements Cloneable{
 	
     public void setAddedFileList(ArrayList<File> addedFileList) {
 		this.addedFileList = addedFileList;
-	}
-
-	public void setCommittedFileList(ArrayList<File> committedFileList) {
-		this.committedFileList = committedFileList;
 	}
 
 	public void setPreviousCommit(String previousCommit) {
