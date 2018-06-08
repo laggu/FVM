@@ -25,7 +25,7 @@ public class Init extends BaseCommand{
 
         System.out.println(status.getRootPath());
 
-        File dir = new File(homePath + "/.fvm/"+ projectName + "/branch/master");
+        File dir = new File(status.getRootPath() + "/.fvm/"+ projectName + "/branch/master");
         dir.mkdirs();
     }
 }

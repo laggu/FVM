@@ -1,4 +1,4 @@
-package ui.local;
+package UI.local;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,7 +37,7 @@ public class Center extends JPanel {
 		center.add(tree);
 		add("Center",center);
 		
-		east.setLayout(new GridLayout(2, 2));
+		east.setLayout(new GridLayout(2, 1));
 		east.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),"Status"));
 		l1 = new JLabel("Current Branch:");
 		cb = new JLabel("");

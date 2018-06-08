@@ -1,26 +1,43 @@
-package ui.Remote;
+package UI.Remote;
 
-import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class South extends JPanel {
-	JButton button1, button2, button3, button4;
 
 	public South() {
-		
-		setLayout(new GridLayout(1,4,1,1));
+		setLayout(new GridLayout(1, 4, 3, 3));
 
-		button1 = new JButton("Push");
+
+		JButton button1 = new JButton("Push");
+		JButton button2 = new JButton("pull");
+		JButton button3 = new JButton("push");
+		JButton button4 = new JButton("clone");
+
+		button1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				// new PushView();
+
+			}
+		});
+
+		button1.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		button2.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		button3.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		button4.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		
+		
 		add(button1);
-		button2 = new JButton("Pull");
 		add(button2);
-		button3 = new JButton("Path");
 		add(button3);
-		button4 = new JButton("Clone");
 		add(button4);
 	}
+
 }
