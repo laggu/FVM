@@ -41,7 +41,6 @@ public class Checkout extends BaseCommand{
 
         Status previousCommit = status;
 
-
         System.out.println(files_to_copy);
 
         while(!files_to_copy.isEmpty()){
@@ -75,19 +74,10 @@ public class Checkout extends BaseCommand{
                 }
             }
 
-
             previousCommit = commitTree.getParent(previousCommit);
             if(previousCommit == null)
                 break;
         }
-
-        // db에서 commited 파일 리스트 읽어옴
-
-
-        //////////////////            작성 필요               //////////////////////
-
-
-        //
     }
 
 

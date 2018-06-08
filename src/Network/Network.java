@@ -70,8 +70,10 @@ public class Network {
     private void sendFile(File f){
         byte[] buffer = new byte[10000];
         int readBytes;
+        int result = 0;
 
         try {
+            objectOutputStream.writeInt(0);
             String fName = f.getName();
             objectOutputStream.writeUTF(fName);
 
@@ -82,25 +84,51 @@ public class Network {
                 objectOutputStream.flush();
             }
 
+            result = objectInputStream.readInt();
+            if(result == 1)
+                System.out.println("전송 성공 : " + f.getName());
+            else
+                System.out.println("전송 실패 : " + f.getName());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public void sendDir(File dir){
+        int result = 0;
+        try {
+            objectOutputStream.writeInt(1);
+            String dirName = dir.getName();
+            objectOutputStream.writeUTF(dirName);
 
+            File[] list = dir.listFiles();
+
+            for (int i = 0; i < list.length; ++i) {
+                if(list[i].isDirectory())
+                    sendDir(list[i]);
+                else if (list[i].isFile())
+                    sendFile(list[i]);
+            }
+
+            result = objectInputStream.readInt();
+            if(result == 1)
+                System.out.println("전송 성공 : " + dir.getName());
+            else
+                System.out.println("전송 실패 : " + dir.getName());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void receiveFile(){
+    private void receiveFile(String rootPath){
         byte[] buffer = new byte[10000];
         int n;
 
         try{
             String fileName = objectInputStream.readUTF();
 
-
             // 경로 변경 필요함    !!!!!!!!!!!!
-            File f = new File(fileName);
+            File f = new File(rootPath+fileName);
             FileOutputStream fos = new FileOutputStream(f);
 
             while((n = objectInputStream.read(buffer)) != -1){
@@ -108,12 +136,53 @@ public class Network {
                 fos.flush();
             }
 
+            objectOutputStream.writeInt(1);
         } catch (IOException e) {
             e.printStackTrace();
+            try {
+                objectOutputStream.writeInt(0);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 
-    public void receiveDir(){
+    public void receiveDir(String rootPath){
+        try {
+            String dirName = objectInputStream.readUTF();
 
+            File dir = new File(rootPath+dirName);
+            dir.mkdirs();
+
+            objectOutputStream.writeInt(1);
+        } catch (IOException e) {
+            e.printStackTrace();
+            try {
+                objectOutputStream.writeInt(0);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
+
+    public void receive(){
+        String rootPath = null;
+
+        try {
+            rootPath = objectInputStream.readUTF();
+
+            while (true) {
+                int receiveCode = objectInputStream.readInt();
+                if (receiveCode == 1) {
+                    receiveDir(rootPath);
+                } else if (receiveCode == 2) {
+                    receiveFile(rootPath);
+                } else if (receiveCode == 3) {
+                    break;
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
