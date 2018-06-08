@@ -1,4 +1,6 @@
 package Command;
+import DB.Project_DAO;
+import DB.Vo_Project;
 import Main.Status;
 
 import java.io.File;
@@ -44,5 +46,8 @@ public class Init extends BaseCommand{
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Vo_Project project = new Vo_Project(projectName, status.getRootPath());
+        Project_DAO.projectInsert(project);
     }
 }
