@@ -26,7 +26,14 @@ public class Status implements Cloneable{
         return status;
     }
 
-	private String projectName;			
+
+	
+
+    public static void setStatus(Status s){
+		status = s;
+	}
+
+	private String projectName;
 	private String branch;
 	private int version;
 	private String rootPath;
@@ -45,8 +52,6 @@ public class Status implements Cloneable{
         this.previousCommit = "root";
 	}
 	
-	
-
     public void setAddedFileList(ArrayList<File> addedFileList) {
 		this.addedFileList = addedFileList;
 	}
@@ -62,6 +67,7 @@ public class Status implements Cloneable{
 	private Status(Status status){
         this.branch = status.branch;
         this.version = status.version + 1;
+		rootPath = status.rootPath;
         newAddedFileList = new ArrayList<>();
         addedFileList = cloneList(status.addedFileList);
         addedFileList.addAll(status.newAddedFileList);
@@ -73,6 +79,7 @@ public class Status implements Cloneable{
 	    this.branch = branch;
 	    this.version = 1;
 	    this.previousCommit = status.getCommitName();
+		rootPath = status.rootPath;
         newAddedFileList = new ArrayList<>();
         addedFileList = cloneList(status.addedFileList);
         addedFileList.addAll(status.newAddedFileList);
@@ -85,6 +92,10 @@ public class Status implements Cloneable{
 
 	public void setRootPath(String rootPath) {
 		this.rootPath = rootPath;
+	}
+
+	public String getBranchPath(){
+		return rootPath + "/.fvm/branch/" + branch + "/" + version;
 	}
 
 	public String getProjectName() {
@@ -127,7 +138,11 @@ public class Status implements Cloneable{
 		return committedFileList;
 	}
 
-    public String getPreviousCommit() {
+	public void setCommittedFileList(ArrayList<File> committedFileList) {
+		this.committedFileList = committedFileList;
+	}
+
+	public String getPreviousCommit() {
         return previousCommit;
     }
 
@@ -149,7 +164,7 @@ public class Status implements Cloneable{
         return fileNameList;
     }
 
-    private ArrayList<File> cloneList(ArrayList<File> list){
+    public ArrayList<File> cloneList(ArrayList<File> list){
         ArrayList<File> new_list = new ArrayList<>();
 
         Iterator it = list.iterator();

@@ -1,4 +1,4 @@
-package UI.Remote;
+package ui.Remote;
 
 import javax.swing.JPanel;
 import javax.swing.JTree;
@@ -7,11 +7,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 public class West extends JPanel {
 
 	public West() {
-		DefaultMutableTreeNode root = new DefaultMutableTreeNode("·çÆ®³ëµå¿ä");
+		DefaultMutableTreeNode root = new DefaultMutableTreeNode("ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½");
 
-		DefaultMutableTreeNode child1 = new DefaultMutableTreeNode("1¹øÂ°ÀÚ½Ä");
+		DefaultMutableTreeNode child1 = new DefaultMutableTreeNode("1ï¿½ï¿½Â°ï¿½Ú½ï¿½");
 
-		DefaultMutableTreeNode child2 = new DefaultMutableTreeNode("2¹øÂ° ÀÚ½Ä");
+		DefaultMutableTreeNode child2 = new DefaultMutableTreeNode("2ï¿½ï¿½Â° ï¿½Ú½ï¿½");
 
 		root.add(child1);
 		root.add(child2);

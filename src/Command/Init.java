@@ -16,10 +16,14 @@ public class Init extends BaseCommand{
         String homePath = System.getProperty("user.home");
         Status status = Status.getInstance();
 
+        System.out.println(homePath);
+
         status.setProjectName(projectName);
         status.setBranch("master");
         status.setVersion(1);
         status.setRootPath(System.getProperty("user.dir"));
+
+        System.out.println(status.getRootPath());
 
         File dir = new File(homePath + "/.fvm/"+ projectName + "/branch/master");
         dir.mkdirs();
