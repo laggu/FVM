@@ -27,6 +27,8 @@ public class Commit extends BaseCommand {
 
         while(!checkList.isEmpty()){
 			previousCommit = commitTree.getParent(previousCommit);
+			if(previousCommit == null)
+				break;
 			ArrayList<File> previousCommitList = previousCommit.getCommittedFileList();
 
 			Iterator it = previousCommitList.iterator();
@@ -73,6 +75,9 @@ public class Commit extends BaseCommand {
 		}
 
 		status.setCommittedFileList(list);
+		System.out.print("status.getAddedFileList()");
+		System.out.println(status.getAddedFileList());
+		status.getAddedFileList().addAll(status.getNewAddedFileList());
 		commitTree.addCommitNode(status);
 		Status.newInstance();
 	}
@@ -111,9 +116,15 @@ public class Commit extends BaseCommand {
 		// 해싱된 byte 배열을 digest메서드의 반환값을 통해 얻는다.
 		byte[] hashbytes = md.digest();
 
-		System.out.println(new String(hashbytes));
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < hashbytes.length; ++i) {
+			sb.append(Integer.toString((hashbytes[i]&0xff)+0x100,16).substring(1));
+		}
 
-		return hashbytes.toString();
+		System.out.println(sb.toString());
+
+
+		return sb.toString();
 	}
 
 	private boolean isSameFile(File original, File commitedFIle, String rootPath, String branchPath){
@@ -133,28 +144,27 @@ public class Commit extends BaseCommand {
 	}
 
 	private void copyFile(File from, File to){
-		BufferedReader fr = null;
-		BufferedWriter fw = null;
+		BufferedInputStream fis = null;
+		BufferedOutputStream fos = null;
 
 		try {
-			fr = new BufferedReader(new FileReader(from));
-			fw = new BufferedWriter(new FileWriter(to));
+			fis = new BufferedInputStream(new FileInputStream(from));
+			fos = new BufferedOutputStream(new FileOutputStream(to));
 
-			String temp;
-
-			while((temp = fr.readLine())!= null){
-				fw.write(temp);
-				fw.flush();
+			byte[] buf = new byte[1024];
+			int read;
+			while((read = fis.read(buf)) != -1) {
+				fos.write(buf, 0, read);
 			}
 
-			fw.flush();
+			fos.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		finally {
 			try {
-				fw.close();
-				fr.close();
+				fis.close();
+				fos.close();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

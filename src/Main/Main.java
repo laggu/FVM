@@ -21,6 +21,8 @@ public class Main {
 		command.execute();
 		command = new Commit();
 		command.execute();
+		command = new Checkout("master_1");
+		command.execute();
 
 
 

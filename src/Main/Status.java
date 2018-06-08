@@ -55,7 +55,8 @@ public class Status implements Cloneable{
 		rootPath = status.rootPath;
         newAddedFileList = new ArrayList<>();
         addedFileList = cloneList(status.addedFileList);
-        addedFileList.addAll(status.newAddedFileList);
+        System.out.println("inside Status generator status.addedFileList - " + status.addedFileList);
+        //addedFileList.addAll(status.newAddedFileList);
         committedFileList = new ArrayList<>();
         this.previousCommit = status.getCommitName();
     }

@@ -1,7 +1,5 @@
 package Main;
 
-import Network.Network;
-
 import java.util.HashMap;
 
 public class CommitTree {
@@ -27,18 +25,27 @@ public class CommitTree {
     }
 
     public void addCommitNode(Status s){
+        System.out.println(s.getPreviousCommit());
+        System.out.println(s.getAddedFileList());
         Node parent = commitPointer.get(s.getPreviousCommit());
         Node n = new Node(parent, s);
+        System.out.print(s.getCommitName());
+        System.out.println(" getCommitName()");
         commitPointer.put(s.getCommitName(), n);
+        commitPointer.put(s.getBranch(), n);
         parent.addChild(n);
     }
 
     public Status getStatus(String commitName){
+        System.out.println(commitName);
         Node n = commitPointer.get(commitName);
+        System.out.println(n.getStatus().getAddedFileList());
         return n.getStatus();
     }
 
     public Status getParent(Status s){
+        if(s.getPreviousCommit().equals("root"))
+            return null;
         Node parent = commitPointer.get(s.getPreviousCommit());
         return parent.getStatus();
     }

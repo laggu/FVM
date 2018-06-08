@@ -12,6 +12,7 @@ public class Checkout extends BaseCommand{
 
     public Checkout(String branch) {
         this.branch = branch;
+        System.out.println("checkout generator" + branch);
     }
 
     @Override
@@ -31,56 +32,87 @@ public class Checkout extends BaseCommand{
 
         Status.setStatus(commitTree.getStatus(branch));
         status = Status.getInstance();
+        System.out.println("after setStatus " + status.getVersion());
+        System.out.print("commitTree.getStatus(branch).getAddedFileList() ");
+        System.out.println(commitTree.getStatus(branch).getAddedFileList());
+        System.out.println(status.getAddedFileList());
 
-        ArrayList<String> fileNames_to_copy = new ArrayList<>();
+        ArrayList<File> files_to_copy = status.cloneList(status.getAddedFileList());
 
+        Status previousCommit = status;
 
+        System.out.println(files_to_copy);
 
-        // db에서 commited 파일 리스트 읽어옴
+        while(!files_to_copy.isEmpty()){
+            ArrayList<File> previousCommitList = previousCommit.getCommittedFileList();
+            System.out.print("previousCommitList: ");
+            System.out.println(previousCommitList);
 
+            it = previousCommitList.iterator();
 
-        //////////////////            작성 필요               //////////////////////
+            while (it.hasNext()) {
+                File previousFile = (File)it.next();
+                System.out.print("previousFile: ");
+                System.out.println(previousFile);
 
+                Iterator it_checklist = files_to_copy.iterator();
 
-        //
+                while (it_checklist.hasNext()) {
+                    File currentFile = (File)it_checklist.next();
+                    System.out.print("currentFile: ");
+                    System.out.println(currentFile);
+                    System.out.println("status.getRootPath()" + status.getRootPath());
+                    System.out.println("previousCommit.getBranchPath())" + previousCommit.getBranchPath());
+                    if (isSameFile(currentFile,previousFile,status.getRootPath(),previousCommit.getBranchPath())) {
+                        System.out.println("same");
+                        File f = new File(currentFile.toString());
 
-        it = status.getAddedFileList().iterator();
-        while (it.hasNext()) {
-            String fileName = (String) it.next();
-            File f = new File(status.getRootPath() + fileName);
-            f.delete();
+                        copyFile(previousFile,f);
+                        files_to_copy.remove(currentFile);
+                        break;
+                    }
+                }
+            }
+
+            previousCommit = commitTree.getParent(previousCommit);
+            if(previousCommit == null)
+                break;
         }
-
-
     }
 
 
     private void copyFile(File from, File to){
-        BufferedReader fr = null;
-        BufferedWriter fw = null;
+        BufferedInputStream fis = null;
+        BufferedOutputStream fos = null;
 
         try {
-            fr = new BufferedReader(new FileReader(from));
-            fw = new BufferedWriter(new FileWriter(to));
+            fis = new BufferedInputStream(new FileInputStream(from));
+            fos = new BufferedOutputStream(new FileOutputStream(to));
 
-            String temp;
-
-            while((temp = fr.readLine())!= null){
-                fw.write(temp);
-                fw.flush();
+            byte[] buf = new byte[1024];
+            int read;
+            while((read = fis.read(buf)) != -1) {
+                fos.write(buf, 0, read);
             }
 
-            fw.flush();
+            fos.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
         finally {
             try {
-                fw.close();
-                fr.close();
+                fis.close();
+                fos.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private boolean isSameFile(File original, File commitedFIle, String rootPath, String branchPath){
+        String originalName = original.getAbsolutePath().replace(rootPath, "");
+        String commitFileName = commitedFIle.getAbsolutePath().replace(branchPath, "");
+
+        return originalName.equals(commitFileName);
     }
 }
