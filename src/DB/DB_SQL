@@ -88,5 +88,4 @@ ALTER TABLE Repository ADD CONSTRAINT IDX_Repository_PK PRIMARY KEY (RepositName
 ALTER TABLE Repository ADD CONSTRAINT IDX_Repository_FK0 FOREIGN KEY (Id) REFERENCES Remote (Id);
 
 ALTER TABLE CommitedFile ADD CONSTRAINT IDX_CommitedFile_PK PRIMARY KEY (FName, FStatus, CommitNo);
-ALTER TABLE CommitedFile ADD CONSTRAINT IDX_CommitedFile_FK0 FOREIGN KEY (CommitNo) REFERENCES CommitData (CommitNo);
 
