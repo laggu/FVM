@@ -1,4 +1,4 @@
-package ui.Remote;
+package UI.Remote;
 
 import java.awt.Container;
 
