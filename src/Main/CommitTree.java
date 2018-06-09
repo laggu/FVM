@@ -50,4 +50,9 @@ public class CommitTree {
         Node parent = commitPointer.get(s.getPreviousCommit());
         return parent.getStatus();
     }
+
+    public void setBranchPoint(Status s, String branch){
+        Node parent = commitPointer.get(s.getPreviousCommit());
+        commitPointer.put("__" + branch, parent);
+    }
 }

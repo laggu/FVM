@@ -22,7 +22,10 @@ public class Status implements Cloneable{
     }
 
 	public static Status newInstance(String branch){
-        status = new Status(branch, status);
+		if(branch.equals("master"))
+			status = new Status(status);
+		else
+			status = new Status(branch, status);
         return status;
     }
 
