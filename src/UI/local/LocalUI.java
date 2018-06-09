@@ -45,4 +45,11 @@ public class LocalUI extends JPanel {
 		this.selectedFileName = selectedFileName;
 		System.out.println(selectedFileName);
 	}
+
+	public void updateCenterPanel(){
+		remove(centerPanel);
+		centerPanel = new Center(this);
+		add(centerPanel, BorderLayout.CENTER);
+		revalidate();
+	}
 }

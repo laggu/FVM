@@ -127,7 +127,7 @@ public class Center extends JPanel {
         tree.expandRow(0);
         tree.updateUI();
         revalidate();
-        repaint();
+//        repaint();
 	}
 	
 	private void addTreeNode(DefaultMutableTreeNode root, File[] list) {

@@ -55,9 +55,7 @@ public class North extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()!=null) {
-					Center ctree = localPanel.getCenterPanel();
-					ctree.setTree();
-					ctree.repaint();
+					localPanel.updateCenterPanel();
 				}
 
 			}
