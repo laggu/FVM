@@ -16,7 +16,7 @@ public class Branch extends BaseCommand
     public void execute()
     {
         Status status = Status.getInstance();
-        String branch_dir_str = new String(status.getRootPath() + "/.fvm/branch/" + this.branchName);
+        String branch_dir_str = new String(status.getRootPath() + "/.fvm/"+ status.getProjectName() +"/branch/" + this.branchName);
 
         File dir = new File(branch_dir_str);
 

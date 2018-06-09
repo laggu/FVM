@@ -10,23 +10,22 @@ import java.io.IOException;
 
 public class Init extends BaseCommand{
 
-    String projectName;
+    private String projectName;
+    private String rootPath;
 
-    public Init(String str){
+    public Init(String str, String path){
         projectName = str;
+        rootPath = path;
     }
 
     @Override
     public void execute() {
-        String homePath = System.getProperty("user.home");
         Status status = Status.getInstance();
-
-        System.out.println(homePath);
 
         status.setProjectName(projectName);
         status.setBranch("master");
         status.setVersion(1);
-        status.setRootPath(System.getProperty("user.dir"));
+        status.setRootPath(rootPath);
 
         System.out.println(status.getRootPath());
 
@@ -48,6 +47,6 @@ public class Init extends BaseCommand{
         }
 
         Vo_Project project = new Vo_Project(projectName, status.getRootPath());
-        Project_DAO.projectInsert(project);
+        //Project_DAO.projectInsert(project);
     }
 }

@@ -11,7 +11,7 @@ public class Main {
 
 		System.out.println("123");
 
-		BaseCommand command = new Init("test");
+		BaseCommand command = new Init("test", System.getProperty("user.dir"));
 		command.execute();
 		command = new Add("a.txt");
 		command.execute();

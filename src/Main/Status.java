@@ -77,7 +77,7 @@ public class Status implements Cloneable{
 	private Status(String branch, Status status){
 	    this.branch = branch;
 	    this.version = 1;
-	    this.previousCommit = status.getCommitName();
+	    this.previousCommit = status.getPreviousCommit();
 		projectName = status.projectName;
 		rootPath = status.rootPath;
         newAddedFileList = new ArrayList<>();

@@ -16,7 +16,7 @@ public class Add extends BaseCommand {
 
 	@Override
 	public void execute() {
-		File f = new File(fileName);
+		File f = new File(status.getRootPath()+"/"+fileName);
 
 		if (!f.exists()) {
 			System.out.println("file does not exist");
@@ -24,17 +24,18 @@ public class Add extends BaseCommand {
 			addDir(f);
 		}
 
-		status.addFile(f);
+		//status.addFile(f);
+		System.out.println("added file number : " + status.getNewAddedFileList().size());
 	}
 
 	private void addDir(File dir){
 		File[] list = dir.listFiles();
 
 		for (File file: list) {
-			if(file.isDirectory()){
+			if(file.isDirectory())
 				addDir(file);
-			}
-			status.addFile(file);
+			else
+				status.addFile(file);
 		}
 	}
 

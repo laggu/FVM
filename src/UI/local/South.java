@@ -12,12 +12,14 @@ import UI.local.south.*;
 
 public class South extends JPanel {	
 	JButton b1,b2,b3,b4,b5,b6;
+	LocalUI localUI;
 	
-	South() {		
+	South(LocalUI localUI) {
+		this.localUI = localUI;
 		setLayout(new GridLayout(1,6,3,3));
 		
-		b1=new InitButton();
-		b2=new AddButton();
+		b1=new InitButton(localUI);
+		b2=new AddButton(localUI);
 		b3=new CommitButton();
 		b4=new BranchButton();
 		b5=new MergeButton();

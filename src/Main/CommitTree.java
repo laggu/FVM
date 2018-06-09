@@ -46,6 +46,7 @@ public class CommitTree {
     public Status getParent(Status s){
         if(s.getPreviousCommit().equals("root"))
             return null;
+        System.out.println("getparent : "+ s.getPreviousCommit());
         Node parent = commitPointer.get(s.getPreviousCommit());
         return parent.getStatus();
     }

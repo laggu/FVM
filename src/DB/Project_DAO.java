@@ -1,9 +1,7 @@
 package DB;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
+import java.util.ArrayList;
 
 public class Project_DAO {
 
@@ -41,4 +39,33 @@ public class Project_DAO {
 		return result;
 	}
 
+	public static ArrayList<Vo_Project> projectSelect() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * from Project");
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Vo_Project> projectlist = new ArrayList<>();
+
+		con = JDBCUtil.getConnection();
+		try {
+			ps = con.prepareStatement(sql.toString());
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				String projectName = rs.getString(1);
+				String projectPath = rs.getString(2);
+				Vo_Project temp = new Vo_Project(projectName, projectPath);
+				projectlist.add(temp);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(con, ps, rs);
+		}
+
+		return projectlist;
+	}
 }

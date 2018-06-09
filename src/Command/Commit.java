@@ -46,7 +46,7 @@ public class Commit extends BaseCommand {
 							System.out.println(previousFile);
 							System.out.println(currentFile);
 							System.out.println("changed");
-							commitlist.add(previousFile);
+							commitlist.add(currentFile);
 						}
 						//it_checklist.remove();
 						System.out.println("remove");
@@ -60,6 +60,7 @@ public class Commit extends BaseCommand {
 			}
 		}
 
+		System.out.print("commitlist : ");
 		System.out.println(commitlist);
 
 		Iterator it = commitlist.iterator();
@@ -68,7 +69,7 @@ public class Commit extends BaseCommand {
 		while (it.hasNext()) {
 			File original_file = (File)it.next();
 			String filename = original_file.getAbsolutePath().replace(status.getRootPath(), "");
-			File new_file = new File(status.getBranchPath()+filename);
+			File new_file = new File(status.getBranchPath()+"/"+filename);
 
 			copyFile(original_file, new_file);
 
@@ -80,7 +81,7 @@ public class Commit extends BaseCommand {
 		System.out.println(status.getAddedFileList());
 		status.getAddedFileList().addAll(status.getNewAddedFileList());
 		commitTree.addCommitNode(status);
-		Commit_DAO.Insert(status);
+		//Commit_DAO.Insert(status);
 		Status.newInstance();
 	}
 
@@ -150,6 +151,9 @@ public class Commit extends BaseCommand {
 		BufferedOutputStream fos = null;
 
 		try {
+			if(!to.getParentFile().exists())
+				to.getParentFile().mkdirs();
+
 			fis = new BufferedInputStream(new FileInputStream(from));
 			fos = new BufferedOutputStream(new FileOutputStream(to));
 

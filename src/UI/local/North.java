@@ -25,8 +25,11 @@ public class North extends JPanel {
 	JComboBox cbox;
 	JButton bu;
 	String homePath = System.getProperty("user.home");
+
+	private LocalUI localPanel;
 	
-	North(){
+	North(LocalUI localPanel){
+		this.localPanel = localPanel;
 		setLayout(new GridLayout(1,5,3,3));
 		
 		toolbar = new JToolBar();
@@ -48,15 +51,18 @@ public class North extends JPanel {
 		toolbar.add(location);
 		toolbar.add(bu);
 		
-		ActionListener bu = new ActionListener() {
+		bu.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if(e.getSource()!=null) {					
-					Center ctree = new Center();
+				if(e.getSource()!=null) {
+					Center ctree = localPanel.getCenterPanel();
+					ctree.setTree();
+					ctree.repaint();
 				}
-				
+
 			}
-		};
+		});
+
 		
 		add(toolbar);
 		setBackground(Color.PINK);
@@ -64,4 +70,8 @@ public class North extends JPanel {
 		
 	}
 
+
+	public JTextField getLocationTextField(){
+		return location;
+	}
 }

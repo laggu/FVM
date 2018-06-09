@@ -5,14 +5,44 @@ import java.awt.BorderLayout;
 import javax.swing.JPanel;
 
 public class LocalUI extends JPanel {
+
+	private North northPanel;
+	private Center centerPanel;
+	private South southPanel;
+	private String selectedFileName;
 	
 	public LocalUI() {
 		
 		setLayout(new BorderLayout());
+
+
+		northPanel = new North(this);
+		centerPanel = new Center(this);
+		southPanel = new South(this);
 		
-		add(new North(),BorderLayout.NORTH);
-		add(new Center(),BorderLayout.CENTER);
-		add(new South(),BorderLayout.SOUTH);
+		add(northPanel,BorderLayout.NORTH);
+		add(centerPanel,BorderLayout.CENTER);
+		add(southPanel,BorderLayout.SOUTH);
 	}
 
+	public North getNorthPanel() {
+		return northPanel;
+	}
+
+	public Center getCenterPanel() {
+		return centerPanel;
+	}
+
+	public South getSouthPanel() {
+		return southPanel;
+	}
+
+	public String getSelectedFileName() {
+		return selectedFileName;
+	}
+
+	public void setSelectedFileName(String selectedFileName) {
+		this.selectedFileName = selectedFileName;
+		System.out.println(selectedFileName);
+	}
 }
