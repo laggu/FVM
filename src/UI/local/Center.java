@@ -3,6 +3,7 @@ package UI.local;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Panel;
 import java.awt.TextField;
@@ -45,24 +46,38 @@ public class Center extends JPanel {
 		center.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),"파일 목록"));
 		setTree();
 
-
-
 		add("Center",center);
 		
-		east.setLayout(new GridLayout(2, 2));
-		east.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),"Status"));
-		l1 = new JLabel("Current Branch:");
-		cb = new JLabel("");
+		east.setLayout(new GridLayout(4, 1));
+		//east.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),"Current Branch:"));
+		
+		//JLabel east_1 = new JLabel();
+		//east_1.setLayout(new GridLayout(4, 1));
+		
+		l1 = new JLabel("현재 브런치 정보 표시 창");
+		l1.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),"Current Branch:"));
 		
 		cm = new JPanel();
 		cm.setLayout(new BorderLayout());
 		cm.setBorder(new TitledBorder(new SoftBevelBorder(SoftBevelBorder.RAISED),"Commit Message"));
-		ms = new JLabel("update DB");
+
+		GridBagConstraints c = new GridBagConstraints();
+		c.weightx = 0.1f;
+		c.fill = GridBagConstraints.VERTICAL;
+		ms = new JLabel("현재 commit 메시지 표시창");
 		east.add(l1);
-		east.add(cb);
-		east.add(cm);
+		east.add(cm,c);
+		
 		cm.add(ms);
 		add("East",east);
+	}
+
+	public void setL1(String text) {
+		this.l1.setText(text);
+	}
+
+	public void setMs(String text) {
+		this.ms.setText(text);
 	}
 
 	void setTree() {
