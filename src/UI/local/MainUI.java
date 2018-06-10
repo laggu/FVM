@@ -27,12 +27,4 @@ public class MainUI extends JFrame {
 		setVisible(true);
 		
 	}
-	
-	public static void main(String[] args) {
-		// local ui test
-		new MainUI();
-	}
-	
-	
-
 }

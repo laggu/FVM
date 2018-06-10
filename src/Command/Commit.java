@@ -69,7 +69,7 @@ public class Commit extends BaseCommand {
 		while (it.hasNext()) {
 			File original_file = (File)it.next();
 			String filename = original_file.getAbsolutePath().replace(status.getRootPath(), "");
-			File new_file = new File(status.getBranchPath()+"/"+filename);
+			File new_file = new File(status.getBranchPath()+Status.getFileDelimiter()+filename);
 
 			copyFile(original_file, new_file);
 

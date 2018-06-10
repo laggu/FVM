@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 import UI.local.south.*;
 
 public class South extends JPanel {	
-	JButton b1,b2,b3,b4,b5,b6;
-	LocalUI localUI;
+	private JButton b1,b2,b3,b4,b5,b6;
+	private LocalUI localUI;
 	
 	South(LocalUI localUI) {
 		this.localUI = localUI;
@@ -22,7 +22,7 @@ public class South extends JPanel {
 		b2=new AddButton(localUI);
 		b3=new CommitButton();
 		b4=new BranchButton();
-		b5=new MergeButton();
+		b5=new MergeButton(localUI);
 		b6=new CheckOutButton();
 		
 		add(b1);

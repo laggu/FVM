@@ -29,7 +29,7 @@ public class Project_DAO {
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();
 
-			// 결과값 핸들린
+			// 결과값 핸들링
 
 		} catch (Exception e) {
 			e.printStackTrace();
