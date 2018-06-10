@@ -28,7 +28,7 @@ public class InitButton extends JButton {
 				Init init = new Init(name, path);
 
 				init.execute();
-
+				localUI.setCenterPanelText();
 			}
 		});
 		

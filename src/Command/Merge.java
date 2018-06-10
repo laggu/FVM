@@ -12,6 +12,8 @@ import java.util.Set;
 
 import javax.swing.JOptionPane;
 
+import DB.Commit_DAO;
+
 public class Merge extends BaseCommand {
 
     private String branch;
@@ -87,7 +89,7 @@ public class Merge extends BaseCommand {
 
         newStatus.getAddedFileList().addAll(newStatus.getNewAddedFileList());
         commitTree.addCommitNode(newStatus);
-        //Commit_DAO.Insert(status);
+        Commit_DAO.Insert(newStatus);
         Status.newInstance();
     }
 

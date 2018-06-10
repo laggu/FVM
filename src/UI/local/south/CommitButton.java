@@ -1,6 +1,7 @@
 package UI.local.south;
 
 import Command.Commit;
+import UI.local.LocalUI;
 
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -11,7 +12,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class CommitButton extends JButton {
-	public CommitButton() {
+	private LocalUI localUI;
+	public CommitButton(LocalUI localUI) {
+		this.localUI = localUI;
 		this.setText("Commit");
 		this.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
@@ -24,10 +27,11 @@ public class CommitButton extends JButton {
 				switch (JOptionPane.showConfirmDialog(null, new JScrollPane(ta),"",JOptionPane.YES_NO_OPTION)) {
 				case JOptionPane.YES_OPTION:
 					System.out.println(ta.getText());
-					new Commit().execute();
+					new Commit(ta.getText()).execute();
 					break;
 				}
-				
+
+				localUI.setCenterPanelText();
 			}
 		});
 	}

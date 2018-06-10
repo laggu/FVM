@@ -54,6 +54,7 @@ public class Status implements Cloneable{
 	private ArrayList<File> committedFileList = null;
 	private String previousCommit;
 	private static char fileDelimiter;
+	private String commitMessage;
 
 	private Status() {
 		super();
@@ -168,10 +169,18 @@ public class Status implements Cloneable{
 	    return branch + "_" + version;
     }
 
-    public static ArrayList<String> getFileNameFromList(String rootPath, ArrayList<File> list){
+    public String getCommitMessage() {
+		return commitMessage;
+	}
+
+	public void setCommitMessage(String commitMessage) {
+		this.commitMessage = commitMessage;
+	}
+
+	public static ArrayList<String> getFileNameFromList(String rootPath, ArrayList<File> list){
         ArrayList<String> fileNameList = new ArrayList<>();
 
-        Iterator it = fileNameList.iterator();
+        Iterator it = list.iterator();
 
         while (it.hasNext()) {
             File f = (File)it.next();

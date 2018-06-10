@@ -14,6 +14,10 @@ public class CommitTree {
             return commitTree;
         }
     }
+    
+    public static CommitTree newInstance() {
+    	return commitTree = new CommitTree();
+    }
 
     private Node root;
     private HashMap<String, Node> commitPointer;

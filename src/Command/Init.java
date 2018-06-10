@@ -47,6 +47,6 @@ public class Init extends BaseCommand{
         }
 
         Vo_Project project = new Vo_Project(projectName, status.getRootPath());
-        //Project_DAO.projectInsert(project);
+        Project_DAO.projectInsert(project);
     }
 }

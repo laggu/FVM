@@ -11,6 +11,12 @@ import java.util.Iterator;
 import java.security.MessageDigest;
 
 public class Commit extends BaseCommand {
+	
+	private String message;
+	
+	public Commit(String message) {
+		this.message = message;
+	}
 
 	@Override
 	public void execute() {
@@ -80,8 +86,9 @@ public class Commit extends BaseCommand {
 		System.out.print("status.getAddedFileList()");
 		System.out.println(status.getAddedFileList());
 		status.getAddedFileList().addAll(status.getNewAddedFileList());
+		status.setCommitMessage(message);
 		commitTree.addCommitNode(status);
-		//Commit_DAO.Insert(status);
+		Commit_DAO.Insert(status);
 		Status.newInstance();
 	}
 

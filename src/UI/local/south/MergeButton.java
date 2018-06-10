@@ -26,6 +26,7 @@ public class MergeButton extends JButton {
 				Merge merge = new Merge(name, localUI);
 
 				merge.execute();
+				localUI.setCenterPanelText();
 
 			}
 		});

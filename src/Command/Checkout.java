@@ -78,6 +78,7 @@ public class Checkout extends BaseCommand{
             if(previousCommit == null)
                 break;
         }
+        Status.newInstance();
     }
 
 

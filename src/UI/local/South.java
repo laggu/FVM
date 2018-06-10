@@ -20,10 +20,10 @@ public class South extends JPanel {
 		
 		b1=new InitButton(localUI);
 		b2=new AddButton(localUI);
-		b3=new CommitButton();
-		b4=new BranchButton();
+		b3=new CommitButton(localUI);
+		b4=new BranchButton(localUI);
 		b5=new MergeButton(localUI);
-		b6=new CheckOutButton();
+		b6=new CheckOutButton(localUI);
 		
 		add(b1);
 		add(b2);
