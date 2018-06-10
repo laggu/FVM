@@ -1,6 +1,7 @@
 package UI.local.south;
 
 import Command.Branch;
+import UI.local.LocalUI;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class BranchButton extends JButton {
-	public BranchButton(){
+	private LocalUI localUI;
+	public BranchButton(LocalUI localUI){
+		this.localUI = localUI;
 		this.setText("Branch");
 		this.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
@@ -27,6 +30,7 @@ public class BranchButton extends JButton {
 				new Branch(name).execute();
 			}
 		});
-		
+
+		localUI.setCenterPanelText();
 	}
 }

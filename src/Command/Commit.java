@@ -11,6 +11,12 @@ import java.util.Iterator;
 import java.security.MessageDigest;
 
 public class Commit extends BaseCommand {
+	
+	private String message;
+	
+	public Commit(String message) {
+		this.message = message;
+	}
 
 	@Override
 	public void execute() {
@@ -69,7 +75,7 @@ public class Commit extends BaseCommand {
 		while (it.hasNext()) {
 			File original_file = (File)it.next();
 			String filename = original_file.getAbsolutePath().replace(status.getRootPath(), "");
-			File new_file = new File(status.getBranchPath()+"/"+filename);
+			File new_file = new File(status.getBranchPath()+Status.getFileDelimiter()+filename);
 
 			copyFile(original_file, new_file);
 
@@ -80,8 +86,9 @@ public class Commit extends BaseCommand {
 		System.out.print("status.getAddedFileList()");
 		System.out.println(status.getAddedFileList());
 		status.getAddedFileList().addAll(status.getNewAddedFileList());
+		status.setCommitMessage(message);
 		commitTree.addCommitNode(status);
-		//Commit_DAO.Insert(status);
+		Commit_DAO.Insert(status);
 		Status.newInstance();
 	}
 

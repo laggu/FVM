@@ -1,5 +1,6 @@
 package DB;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -19,15 +20,15 @@ public class JDBCUtil {										// DB와 CONNECTION 관리 클래스
 		String pw = "";
 		
 		try {												// Properties, key(string) - value(string)
-			Properties p = new Properties(); 				 
-			p.load(new FileInputStream("C:\\lib\\db_info.txt"));  
+			Properties p = new Properties();
+			File f = new File("src\\DB\\db_info.txt");
+			p.load(new FileInputStream(f));  
 			driver = p.getProperty("driver");
 			url = p.getProperty("url");
 			user = p.getProperty("user");
 			pw = p.getProperty("pw");
 			
-			Class.forName(p.getProperty("driver"));
-			
+			Class.forName(driver);
 			
 			con = DriverManager.getConnection(url, user, pw);
 		} catch (Exception e) {

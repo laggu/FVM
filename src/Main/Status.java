@@ -5,6 +5,13 @@ import java.util.Iterator;
 
 public class Status implements Cloneable{
 
+	static {
+		if(System.getProperty("os.name").toLowerCase().indexOf("win") >= 0)
+			fileDelimiter = '\\';
+		else
+			fileDelimiter ='/';
+	}
+	
 	private static Status status;
 
 	public static Status getInstance() {
@@ -22,8 +29,9 @@ public class Status implements Cloneable{
     }
 
 	public static Status newInstance(String branch){
-		if(branch.equals("master"))
-			status = new Status(status);
+		if(branch.equals("master")) {
+			status = new Status(CommitTree.getInstance().getStatus("master"));
+		}
 		else
 			status = new Status(branch, status);
         return status;
@@ -45,6 +53,8 @@ public class Status implements Cloneable{
 	private ArrayList<File> addedFileList = null;
 	private ArrayList<File> committedFileList = null;
 	private String previousCommit;
+	private static char fileDelimiter;
+	private String commitMessage;
 
 	private Status() {
 		super();
@@ -89,6 +99,12 @@ public class Status implements Cloneable{
         committedFileList = new ArrayList<>();
     }
 
+	
+	
+	public static char getFileDelimiter() {
+		return fileDelimiter;
+	}
+
 	public String getRootPath() {
 		return rootPath;
 	}
@@ -98,7 +114,7 @@ public class Status implements Cloneable{
 	}
 
 	public String getBranchPath(){
-		return rootPath + "/.fvm/" + projectName + "/branch/" + branch + "/" + version;
+		return rootPath + fileDelimiter + ".fvm" + fileDelimiter + projectName + fileDelimiter + "branch" + fileDelimiter + branch + fileDelimiter + version;
 	}
 
 	public String getProjectName() {
@@ -153,14 +169,22 @@ public class Status implements Cloneable{
 	    return branch + "_" + version;
     }
 
-    public static ArrayList<String> getFileNameFromList(String rootPath, ArrayList<File> list){
+    public String getCommitMessage() {
+		return commitMessage;
+	}
+
+	public void setCommitMessage(String commitMessage) {
+		this.commitMessage = commitMessage;
+	}
+
+	public static ArrayList<String> getFileNameFromList(String rootPath, ArrayList<File> list){
         ArrayList<String> fileNameList = new ArrayList<>();
 
-        Iterator it = fileNameList.iterator();
+        Iterator it = list.iterator();
 
         while (it.hasNext()) {
             File f = (File)it.next();
-            String s = f.getAbsolutePath().replace(rootPath+"/","");
+            String s = f.getAbsolutePath().replace(rootPath+fileDelimiter,"");
             fileNameList.add(s);
         }
 

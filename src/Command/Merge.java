@@ -2,6 +2,7 @@ package Command;
 
 import Main.CommitTree;
 import Main.Status;
+import UI.local.LocalUI;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -9,15 +10,21 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
+import javax.swing.JOptionPane;
+
+import DB.Commit_DAO;
+
 public class Merge extends BaseCommand {
 
     private String branch;
     private Status masterStatus;
     private Status branchStatus;
     private Status branchedPoint;
+	private LocalUI localUI;
 
-    public Merge(String branch){
+    public Merge(String branch, LocalUI localUI){
         this.branch = branch;
+        this.localUI = localUI;
     }
 
     @Override
@@ -43,12 +50,18 @@ public class Merge extends BaseCommand {
             String key = (String)it.next();
 
             if (!masterCheckList.containsKey(key) && branchCheckList.containsKey(key)) {
-                newList.put(key, branchCheckList.get("key"));
-                newStatus.addFile(new File(branchCheckList.get("key").getAbsolutePath().replace(branchStatus.getBranchPath(),branchStatus.getRootPath())));
+                newList.put(key, branchCheckList.get(key));
+                System.out.println("===================================");
+                System.out.println(branchCheckList.get(key).getAbsolutePath());
+                newStatus.addFile(new File(branchCheckList.get(key).getAbsolutePath().replace(branchStatus.getBranchPath(),branchStatus.getRootPath())));
             } else if (masterCheckList.containsKey(key) && branchCheckList.containsKey(key)){
                 // dialog 이용해 입력
+            	
+            	String[] answer = {masterStatus.getBranch(), branchStatus.getBranch()};
+            	int ans = JOptionPane.showOptionDialog(this.localUI, "파일 충돌이 발생했습니다. Merge할 파일은 선택해주세요." , "Merge", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, answer[0]);
+            	System.out.println("ans : " + ans); //인덱스번호(대답) 리턴 - 0, 1, 2가 리턴
 
-                if(true){
+                if(ans==0){
                     // master branch에서 선택
 
                     branchCheckList.remove(key);
@@ -76,7 +89,7 @@ public class Merge extends BaseCommand {
 
         newStatus.getAddedFileList().addAll(newStatus.getNewAddedFileList());
         commitTree.addCommitNode(newStatus);
-        //Commit_DAO.Insert(status);
+        Commit_DAO.Insert(newStatus);
         Status.newInstance();
     }
 

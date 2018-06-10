@@ -1,6 +1,7 @@
 package UI.local.south;
 
 import Command.Checkout;
+import UI.local.LocalUI;
 
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -9,7 +10,9 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class CheckOutButton extends JButton {
-	public CheckOutButton(){
+	private LocalUI localUI;
+	public CheckOutButton(LocalUI localUI){
+		this.localUI = localUI;
 		this.setText("CheckOut");
 		this.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
@@ -28,6 +31,7 @@ public class CheckOutButton extends JButton {
 		};
 
 		this.addActionListener(add);
+		localUI.setCenterPanelText();
 	}
 
 }

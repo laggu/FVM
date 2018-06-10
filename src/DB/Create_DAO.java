@@ -1,5 +1,6 @@
 package DB;
 
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,8 +50,7 @@ public class Create_DAO {
 	}
 
 	public static void CreateCommittedFile() {
-		String sql = "CREATE TABLE CommitedFile(FName VARCHAR2(100) NULL ,FStatus VARCHAR2(5) NULL , CommitNo NUMBER(10) NOT NULL);" 
-				+ "ALTER TABLE CommitedFile ADD CONSTRAINT IDX_CommitedFile_PK PRIMARY KEY (FName, FStatus, CommitNo)";
+		String sql = "CREATE TABLE CommitedFile(FName VARCHAR2(100), FStatus VARCHAR2(5), CommitNo NUMBER(10), CONSTRAINT CommitedFile_pk PRIMARY KEY(FName, FStatus, CommitNo))";
 
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -60,7 +60,7 @@ public class Create_DAO {
 		try {
 			con = JDBCUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			result = ps.executeUpdate();
+			ps.executeUpdate();
 
 		} catch (Exception e) {
 			e.printStackTrace();

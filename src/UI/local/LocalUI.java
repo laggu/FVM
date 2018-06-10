@@ -4,6 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
 
+import Main.CommitTree;
+import Main.Status;
+
 public class LocalUI extends JPanel {
 
 	private North northPanel;
@@ -14,7 +17,6 @@ public class LocalUI extends JPanel {
 	public LocalUI() {
 		
 		setLayout(new BorderLayout());
-
 
 		northPanel = new North(this);
 		centerPanel = new Center(this);
@@ -48,16 +50,21 @@ public class LocalUI extends JPanel {
 
 	
 	public void updateCenterPanel(){
+		if(centerPanel == null)
+			return;
 		remove(centerPanel);
 		centerPanel = new Center(this);
 		add(centerPanel, BorderLayout.CENTER);
 		revalidate();
 	}
 	
-	public void setCenterPanelText(String currentBranch, String commitMessage)
+	public void setCenterPanelText()
 	{
-		centerPanel.setL1(currentBranch);
-		centerPanel.setMs(commitMessage);
+		Status current = Status.getInstance();
+		Status s =CommitTree.getInstance().getParent(current);
+		centerPanel.setL1(current.getBranch()+':'+current.getVersion());
+		System.out.println(s.getCommitMessage());
+		centerPanel.setMs(s.getCommitMessage());
 	}
 	
 	

@@ -28,10 +28,12 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
+import Main.Status;
+
 public class Center extends JPanel {
-	JTree tree;
-	JLabel l1,cb,ms;
-	JPanel center,east,cm;
+	private JTree tree;
+	private JLabel l1,cb,ms;
+	private JPanel center,east,cm;
 	private LocalUI localPanel;
 	
 	Center(LocalUI localUI) {
@@ -111,9 +113,9 @@ public class Center extends JPanel {
                         String fName = tree.getLastSelectedPathComponent().toString();
                         System.out.println(fName);
                         if(fName.equals("..")){
-                            path.location.setText(rootPath.substring(0,rootPath.lastIndexOf("/")));
+                            path.location.setText(rootPath.substring(0,rootPath.lastIndexOf(Status.getFileDelimiter())));
                         }else{
-                            path.location.setText(rootPath+"/"+fName);
+                            path.location.setText(rootPath+ Status.getFileDelimiter() +fName);
                         }
                         System.out.print("after setText  ");
                         System.out.println(path.location.getText());

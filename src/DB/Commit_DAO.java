@@ -4,6 +4,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import DB.JDBCUtil;
@@ -18,11 +19,14 @@ public class Commit_DAO {
 
 		ArrayList<String> addedFname = Status.getFileNameFromList(status.getRootPath(), status.getAddedFileList());
 		ArrayList<String> commitedFname = Status.getFileNameFromList(status.getRootPath(), status.getCommittedFileList());
-
+		
+		
+		System.out.println("-----");
 		System.out.println(status.getAddedFileList());
 		System.out.println(status.getCommittedFileList());
 		System.out.println(addedFname);
 		System.out.println(commitedFname);
+		System.out.println("-----");
 		
 		StringBuilder sqlData = new StringBuilder();
 		sqlData.append("insert into CommitData values(?,?,?,?,sysdate,?)");
@@ -50,7 +54,7 @@ public class Commit_DAO {
 			ps.setString(2, status.getProjectName());
 			ps.setString(3, status.getBranch());
 			ps.setInt(4, status.getVersion());
-			//ps.setString(5, status.getMessage());
+			ps.setString(5, status.getCommitMessage());
 
 			// ps실행 => insert 완료 결과값
 			result = ps.executeUpdate();
@@ -133,6 +137,15 @@ public class Commit_DAO {
 					status.setBranch(rs.getString(3));
 					status.setRootPath(rs.getString(11));
 					status.setVersion(rs.getInt(4));
+					status.setCommitMessage(rs.getString(6));
+					
+					if (rs.getString(8).contains("a")) {
+						list.add(new File(rs.getString(7)));
+					}
+
+					if (rs.getString(8).contains("c")) {
+						list2.add(new File(rs.getString(7)));
+					}
 
 					previousCommitNumber = rs.getInt(1);
 				} else {
@@ -148,11 +161,11 @@ public class Commit_DAO {
 					status.setVersion(rs.getInt(4));*/
 
 					if (rs.getString(8).contains("a")) {
-						list.add(new File(rs.getString(8)));
+						list.add(new File(rs.getString(7)));
 					}
 
 					if (rs.getString(8).contains("c")) {
-						list2.add(new File(rs.getString(8)));
+						list2.add(new File(rs.getString(7)));
 					}
 				}
 			}
@@ -167,5 +180,31 @@ public class Commit_DAO {
 		}
 
 		return statuslist;
+	}
+	
+	public static void maxNumSelect() {
+		StringBuilder sql = new StringBuilder();
+		sql.append("select max(commitno) from commitdata");
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ArrayList<Vo_Project> projectlist = new ArrayList<>();
+		int result = 0;
+
+		con = JDBCUtil.getConnection();
+		try {
+			ps = con.prepareStatement(sql.toString());
+			rs = ps.executeQuery();
+
+			while(rs.next())
+				result = rs.getInt(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(con, ps, rs);
+		}
+
+		start = result;
 	}
 }
