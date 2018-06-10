@@ -46,10 +46,20 @@ public class LocalUI extends JPanel {
 		System.out.println(selectedFileName);
 	}
 
+	
 	public void updateCenterPanel(){
 		remove(centerPanel);
 		centerPanel = new Center(this);
 		add(centerPanel, BorderLayout.CENTER);
 		revalidate();
 	}
+	
+	public void setCenterPanelText(String currentBranch, String commitMessage)
+	{
+		centerPanel.setL1(currentBranch);
+		centerPanel.setMs(commitMessage);
+	}
+	
+	
+	
 }
