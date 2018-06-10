@@ -19,12 +19,12 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreePath;
 
 public class North extends JPanel {
-	JToolBar toolbar;
-	JLabel l1,l2;
+	private JToolBar toolbar;
+	private JLabel l1,l2;
 	JTextField location;
-	JComboBox cbox;
-	JButton bu;
-	String homePath = System.getProperty("user.home");
+	private JComboBox cbox;
+	private JButton bu;
+	private String homePath = System.getProperty("user.home");
 
 	private LocalUI localPanel;
 	

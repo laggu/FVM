@@ -1,5 +1,6 @@
 package Command;
 
+import Main.CommitTree;
 import Main.Status;
 import java.io.File;
 
@@ -16,8 +17,12 @@ public class Branch extends BaseCommand
     public void execute()
     {
         Status status = Status.getInstance();
-        String branch_dir_str = new String(status.getRootPath() + "/.fvm/"+ status.getProjectName() +"/branch/" + this.branchName);
+        String branch_dir_str = new String(status.getRootPath() + Status.getFileDelimiter() + ".fvm"+ Status.getFileDelimiter() + status.getProjectName() + Status.getFileDelimiter() +"branch" + Status.getFileDelimiter() + this.branchName);
 
+        CommitTree commitTree = CommitTree.getInstance();
+        commitTree.setBranchPoint(status, branchName);
+        
+        status.getBranchPath();
         File dir = new File(branch_dir_str);
 
         if (dir.exists()) {

@@ -29,12 +29,12 @@ public class Init extends BaseCommand{
 
         System.out.println(status.getRootPath());
 
-        File dir = new File(status.getRootPath() + "/.fvm/"+ projectName + "/branch/master");
+        File dir = new File(status.getRootPath() + Status.getFileDelimiter() + ".fvm"+  Status.getFileDelimiter() + projectName +  Status.getFileDelimiter() + "branch" +  Status.getFileDelimiter() + "master");
         dir.mkdirs();
-        dir = new File(status.getRootPath() + "/.fvm/" + projectName + "/data");
+        dir = new File(status.getRootPath() +  Status.getFileDelimiter() + ".fvm" +  Status.getFileDelimiter() + projectName +  Status.getFileDelimiter() + "data");
         dir.mkdirs();
 
-        File f = new File(status.getRootPath() + "/.fvm/" + projectName + "/data/data.dat");
+        File f = new File(status.getRootPath() +  Status.getFileDelimiter() + ".fvm"  +  Status.getFileDelimiter() + projectName +  Status.getFileDelimiter() + "data" +  Status.getFileDelimiter() +"data.dat");
         try {
             FileOutputStream os = new FileOutputStream(f);
             os.write(projectName.getBytes());

@@ -15,7 +15,6 @@ public class LocalUI extends JPanel {
 		
 		setLayout(new BorderLayout());
 
-
 		northPanel = new North(this);
 		centerPanel = new Center(this);
 		southPanel = new South(this);

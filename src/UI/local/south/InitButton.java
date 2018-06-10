@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 public class InitButton extends JButton {
-	LocalUI localUI;
+	private LocalUI localUI;
 	public InitButton(LocalUI localUI) {
 		this.localUI = localUI;
 		this.setText("Init");
