@@ -71,7 +71,8 @@ public class North extends JPanel {
 		location=new JTextField(homePath,50);
 		
 
-		makeTree(projectNames.get(0).getPName());
+		if(!projectNames.isEmpty())
+			makeTree(projectNames.get(0).getPName());
 		
 		bu = new JButton("위치 변경");
 		bu.setBackground(Color.lightGray);

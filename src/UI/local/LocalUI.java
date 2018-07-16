@@ -63,8 +63,8 @@ public class LocalUI extends JPanel {
 		Status current = Status.getInstance();
 		Status s =CommitTree.getInstance().getParent(current);
 		centerPanel.setL1(current.getBranch()+':'+current.getVersion());
-		System.out.println(s.getCommitMessage());
-		centerPanel.setMs(s.getCommitMessage());
+		if(s != null && s.getCommitMessage()!=null)
+			centerPanel.setMs(s.getCommitMessage());
 	}
 	
 	

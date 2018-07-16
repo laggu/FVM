@@ -66,7 +66,7 @@ public class Center extends JPanel {
 		GridBagConstraints c = new GridBagConstraints();
 		c.weightx = 0.1f;
 		c.fill = GridBagConstraints.VERTICAL;
-		ms = new JLabel("현재 commit 메시지 표시창");
+		ms = new JLabel("commit 메시지 표시창");
 		east.add(l1);
 		east.add(cm,c);
 		
